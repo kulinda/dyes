@@ -1,0 +1,36 @@
+
+
+.colorwheel {
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%; /* the padding is a percentage of the parent width, thus this is a square */
+}
+
+.colorwheel_color {
+	position: absolute;
+	margin-left: -64px;
+	margin-top: -64px;
+}
+.dyerectangle.colorwheel_color_rect {
+	width: 128px;
+	height: 128px;
+	border-radius: 64px;
+}
+.colorwheel_color_rect.dyerectangle .text {
+	bottom: calc(50% - 8px);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.colorwheel_help {
+	position: absolute;
+	top: 30%;
+	height: 40%;
+	left: 30%;
+	right: 30%;
+	display: table;
+}
+.colorwheel_help > p {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}

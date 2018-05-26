@@ -1,0 +1,18 @@
+{
+  "name": "dyes",
+  "version": "1.0.0",
+  "private": true,
+  "license": "ISC",
+  "homepage": "./",
+  "actual_homepage": "https://kulinda.github.io/dyes/",
+  "dependencies": {
+    "gl-matrix": "^2.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  }
+}

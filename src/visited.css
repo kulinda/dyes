@@ -1,0 +1,12 @@
+
+.visited_dye {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+
+	transition: left 0.2s ease;
+}
+.visited_dye_inner {
+	position: absolute;
+	top: 0px;
+}

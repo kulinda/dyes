@@ -1,0 +1,37 @@
+
+.slist_outer {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
+.slist_column {
+	position: relative;
+	flex: 1 1 0px;
+}
+div.slist_row {
+	height: 128px;
+}
+.slist_column.left {
+	padding-top: 0px;
+}
+.slist_column.middle {
+	padding-top: 32px;
+}
+.slist_column.right {
+	padding-top: 64px;
+}
+
+.dyerectangle.slist_rect {
+	display: block;
+	width: 256px;
+	height: 64px;
+}
+.slist_rect:nth-child(odd) .text {
+	text-align: left;
+	bottom: calc(50% - 8px);
+}
+.slist_rect:nth-child(even) .text {
+	text-align: right;
+	bottom: calc(50% - 8px);
+}

@@ -1,0 +1,44 @@
+body {
+	background-color: black; /* We need a neutral background to show off colors. Abyss is too light. */
+	color: rgb(211, 208, 207); /* Celestial on cloth */
+}
+
+h1, h2 {
+	color: rgb(156, 126, 81); /* Antique Gold on cloth */
+}
+
+.darkened {
+	color: rgb(142, 138, 120); /* Matte on cloth */
+}
+
+a, a:visited {
+	color: #6666ff;
+}
+a, a:hover {
+	color: #aaaaff;
+}
+
+blockquote {
+	padding: 4px;
+
+	border: 1px solid white;
+	background-color: #111;
+}
+
+select, button, input {
+	border-color: rgb(67, 26, 0); /* Umber on cloth */
+	background-color: rgb(67, 26, 0); /* Umber on cloth */
+	color: rgb(211, 208, 207); /* Celestial on cloth */
+}
+
+select, button {
+	width: 100%;
+}
+input {
+	width: calc(100% - 5px);
+}
+
+th {
+	text-align: center;
+	font-weight: bold;
+}

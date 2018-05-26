@@ -1,0 +1,55 @@
+body {
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+
+	font-family: sans-serif;
+}
+
+.dye_app {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.top_panel {
+	flex: 1 1 0px;
+	min-height: 0px;
+
+	/* contains left_panel and right_panel */
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: stretch;
+}
+
+.bottom_panel {
+	position: relative;
+	flex: 0 0 auto;
+	height: 40px;
+	padding-top: 3px;
+}
+
+.left_panel {
+	flex: 0 0 auto;
+	width: 290px;
+	padding: 5px 10px 5px 5px;
+
+	position: relative;
+	overflow-y: auto;
+}
+
+.right_panel {
+	flex: 1 1 0px;
+	min-height: 0px;
+
+	padding: 5px;
+
+	position: relative;
+	overflow-y: auto;
+}

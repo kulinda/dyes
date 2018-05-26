@@ -1,0 +1,22 @@
+
+.cat_header {
+	font-weight: bold;
+	font-style: italic;
+	width: 100%;
+	margin: 5px 0 0 0;
+	padding: 0;
+	font-size: 18px;
+}
+.cat_container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+}
+.cat_dye {
+	display: block;
+	flex: 0 0 auto;
+	width: 17px;
+	height: 17px;
+	margin: 2.5px;
+	cursor: pointer;
+}
