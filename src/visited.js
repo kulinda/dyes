@@ -37,7 +37,7 @@ export default class VisitedDyeList extends React.Component {
 				left: `calc(${this.visited_scroll_start + idx} * ${VISITED_LIST_ENTRY_WIDTH})`,
 				width: VISITED_LIST_ENTRY_WIDTH
 			}}>
-				<DyeRectangle rgb={dyes[id][REFERENCE_MATERIAL].rgb} link={id} text={dyes[id].name} />
+				<DyeRectangle rgb={dyes[id][REFERENCE_MATERIAL].rgb} link={dyes[id].name} text={dyes[id].name} />
 			</div>)}
 		</div>;
 	}

@@ -5,10 +5,10 @@ import {DYE_CATEGORIES, CONTRASTS, REFERENCE_MATERIAL} from './constants.js';
 import './dyelist.css';
 
 
-function navigateToDye(id) {
-	if (id === undefined)
+function navigateToDye(dye) {
+	if (dye === undefined)
 		return;
-	window.location.hash = '#dye/' + id;
+	window.location.hash = '#dye/' + encodeURIComponent(dye.name.replace(' ', '_'));
 }
 
 class DyeCategory extends React.Component {
@@ -25,7 +25,7 @@ class DyeCategory extends React.Component {
 					let dye = dyes[id];
 					return <div key={id} className='cat_dye' title={dye.name}
 						style={{backgroundColor: 'rgb(' + dye[material].rgb.join(',') + ')'}}
-						onClick={navigateToDye.bind(null, id)}
+						onClick={navigateToDye.bind(null, dye)}
 					/>;
 				})}
 			</div>

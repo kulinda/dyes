@@ -28,7 +28,7 @@ export default function ColorWheel(props) {
 		elements.push(<div key={i} className='colorwheel_color' style={{left: x+'%', top: y+'%'}}>
 			<DyeRectangle className='colorwheel_color_rect' key={i}
 				rgb={dye[mat].rgb} text={dye.name}
-				link={dye.id}
+				link={dye.name}
 			/>
 		</div>);
 	}

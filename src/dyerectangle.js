@@ -3,10 +3,10 @@ import React from 'react';
 import './dyerectangle.css';
 
 
-function navigateToDye(id) {
-	if (id === undefined)
+function navigateToDye(name) {
+	if (name === undefined)
 		return;
-	window.location.hash = '#dye/' + id;
+	window.location.hash = '#dye/' + encodeURIComponent(name.replace(' ', '_'));
 }
 
 export default function DyeRectangle(props) {

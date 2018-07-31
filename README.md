@@ -5,6 +5,7 @@ Feel free to play around, learn from it, change it. If you do make improvements,
 ## How to build
 
 git clone
+
 npm install
 
 Some required files are not included in this repository.

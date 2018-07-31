@@ -22,6 +22,7 @@ class GW2DyesLoader extends React.Component {
 		this.visited_scroll_start = 0;
 		this.state = {
 			dyes: undefined,
+			dyes_by_name: undefined,
 			route: getCurrentHash(),
 		};
 		if (!fetch) {
@@ -35,16 +36,22 @@ class GW2DyesLoader extends React.Component {
 		;
 	}
 
+	componentWillUnmount() {
+		window.removeEventListener('hashchange', this.onHashChange, false);
+	}
+
 	onDyeLoad(data) {
 		let dyes = {};
+		let dyes_by_name = {};
 		for (let i = 0; i < data.length; i++) {
 			let dye = data[i];
 			dyes[dye.id] = dye;
+			dyes_by_name[dye.name] = dye.id;
 			for (let mat of MATERIAL_IDS)
 				dye[mat].matrix = getDyeMatrix(dye[mat]);
 		}
 		this.dumpDyeStats(dyes);
-		this.setState({dyes: dyes});
+		this.setState({dyes: dyes, dyes_by_name: dyes_by_name});
 	}
 
 	dumpDyeStats(dyes) {
@@ -88,9 +95,9 @@ class GW2DyesLoader extends React.Component {
 	}
 
 	render() {
-		let {dyes, route} = this.state;
+		let {dyes, dyes_by_name, route} = this.state;
 
-		return <GW2DyesIndexPage dyes={dyes} route={route} />;
+		return <GW2DyesIndexPage dyes={dyes} dyes_by_name={dyes_by_name} route={route} />;
 	}
 }
 

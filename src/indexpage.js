@@ -12,13 +12,21 @@ import './indexpage.css';
 
 export default class GW2DyesIndexPage extends React.Component {
 	render() {
-		let {dyes, route} = this.props;
+		let {dyes, dyes_by_name, route} = this.props;
 
 		let r = route.split('/');
 		let selected_page = r[0];
 		let selected_dye = false;
-		if (selected_page === 'dye')
-			selected_dye = r[1];
+		if (selected_page === 'dye' && dyes) {
+			selected_dye = decodeURIComponent(r[1]);
+			if (!dyes[selected_dye]) {
+				let name = selected_dye.replace('_', ' ');
+				selected_dye = String(dyes_by_name[name]);
+				if (!dyes[selected_dye]) {
+					selected_dye = false;
+				}
+			}
+		}
 
 		return <div className="dye_app">
 			<div className="top_panel">

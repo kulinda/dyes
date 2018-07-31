@@ -36,7 +36,7 @@ export default class SimilarDyeList extends React.Component {
 		for (let i = 0; i < candidates.length; i++) {
 			let dye = candidates[i].dye;
 			let m = dye[mat];
-			middle.push(<DyeRectangle className='slist_rect' key={i} rgb={m.rgb} text={dye.name} link={dye.id} />);
+			middle.push(<DyeRectangle className='slist_rect' key={i} rgb={m.rgb} text={dye.name} link={dye.name} />);
 			let target = i % 2 ? right : left;
 			target.push(<div key={i} className='slist_row'>
 				<DyeRender matrix={m.matrix} /><DyeRender texture='cauldron' matrix={m.matrix} />
