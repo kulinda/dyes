@@ -1,4 +1,4 @@
-import React from 'react';
+import CanvasComponent from './canvas.js';
 
 // if these imports fail, see src/gl-matrix/readme.txt
 import * as vec4 from './gl-matrix/vec4.js'
@@ -27,54 +27,16 @@ const textures = {
 };
 
 
-export default class DyeRender extends React.PureComponent {
-	constructor(props) {
-		super(props);
-
-		this.ctx = false;
-		this.canvasref = this.canvasref.bind(this);
-		this.paint = this.paint.bind(this);
-		this.listeners = [];
-	}
-
-	canvasref(ref) {
-		this.ctx = false;
-		if (ref) {
-			let ctx = ref.getContext('2d');
-			this.ctx = ctx;
-			this.paint();
-		}
-	}
-
-	getTexture(name) {
-		let texture = textures[name];
-		if (!texture)
-			return null;
-
-		if (!texture.complete) {
-			if (this.listeners.indexOf(texture) === -1) {
-				texture.addEventListener('load', this.paint, false);
-				this.listeners.push(texture);
-			}
-			return null;
-		}
-
-		return texture;
-	}
-
-	paint() {
-		if (!this.ctx)
-			return;
-
-		let texture = this.getTexture(this.props.texture || 'smudge');
+export default class DyeRender extends CanvasComponent {
+	paint(ctx) {
+		let texture = this.waitForImage(textures[this.props.texture || 'smudge']);
 		if (!texture)
 			return;
 
 		let mask = null;
 		if (this.props.mask)
-			mask = this.getTexture(this.props.mask);
+			mask = this.waitForImage(textures[this.props.mask]);
 
-		let ctx = this.ctx;
 		let matrix = this.props.matrix;
 		let w = ctx.canvas.width;
 		let h = ctx.canvas.height;
@@ -121,23 +83,5 @@ export default class DyeRender extends React.PureComponent {
 
 			ctx.putImageData(imagedata, 0, 0);
 		}
-	}
-
-	componentWillUnmount() {
-		this.ctx = false;
-		for (let texture of this.listeners) {
-			texture.removeEventListener('load', this.paint, false);
-		}
-	}
-
-	componentDidUpdate() {
-		this.paint();
-	}
-
-	render() {
-		let w = this.props.width || 128;
-		let h = this.props.height || 128;
-
-		return <canvas width={w} height={h} ref={this.canvasref} />;
 	}
 }

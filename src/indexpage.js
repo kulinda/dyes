@@ -2,6 +2,7 @@ import React from 'react';
 
 import DyeList from './dyelist.js';
 import DyeDetails from './dyedetails.js';
+import DyeStats from './stats.js';
 import DyeSearch from './search.js';
 import VisitedDyeList from './visited.js';
 import FAQ from './faq.js';
@@ -32,6 +33,7 @@ export default class GW2DyesIndexPage extends React.Component {
 			<div className="top_panel">
 				<div className="left_panel">
 					<button onClick={e => window.location.hash = '#faq'}>back to the FAQ</button><br />
+					<button onClick={e => window.location.hash = '#stats'}>dye statistics</button><br />
 					<button onClick={e => window.location.hash = '#search'}>search dyes by RGB</button><br />
 					<br />
 					<DyeList dyes={dyes} />
@@ -39,6 +41,8 @@ export default class GW2DyesIndexPage extends React.Component {
 				<div className="right_panel">
 					{(selected_page === 'search' && dyes)
 						? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
+						: (selected_page === 'stats' && dyes)
+						? <DyeStats dyes={dyes} />
 						: (selected_page === 'faq' || selected_page === '')
 						? <FAQ dyes={dyes} />
 						: (dyes)
