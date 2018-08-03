@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import fetchAPI from './gw2api.js';
+
 import {getDyeMatrix} from './dyecalc.js';
 
 import GW2DyesIndexPage from './indexpage.js';
@@ -21,19 +23,17 @@ class GW2DyesLoader extends React.Component {
 
 		this.visited_scroll_start = 0;
 		this.state = {
+			error: null,
 			dyes: undefined,
 			dyes_by_name: undefined,
 			route: getCurrentHash(),
 		};
 		if (!fetch) {
-			this.onDyeFail();
+			this.onGlobalError('Your browser is too old');
 			return;
 		}
-		fetch('https://api.guildwars2.com/v2/colors?ids=all&lang=en')
-			.then(response => response.json())
-			.then(this.onDyeLoad.bind(this))
-			.catch(this.onDyeFail.bind(this))
-		;
+		fetchAPI.onError = this.onGlobalError.bind(this);
+		fetchAPI('colors?ids=all&lang=en', this.onDyeLoad.bind(this));
 	}
 
 	componentWillUnmount() {
@@ -78,9 +78,14 @@ class GW2DyesLoader extends React.Component {
 */
 	}
 
-	onDyeFail(x) {
-		console.log(x);
-		this.setState({dyes: false})
+	onGlobalError(e, url) {
+		console.warn(e);
+		let msg = typeof e === 'string' ? e : e.message;
+		this.setState({
+			error: msg,
+			error_url: url,
+			dyes: false
+		});
 	}
 
 	onHashChange(e) {
@@ -95,7 +100,17 @@ class GW2DyesLoader extends React.Component {
 	}
 
 	render() {
-		let {dyes, dyes_by_name, route} = this.state;
+		let {error, error_url, dyes, dyes_by_name, route} = this.state;
+
+		if (error)
+			return <div style={{width: '500px', margin: '100px auto'}}>
+				<h1>Kulinda's GW2 Dye Browser</h1>
+				There was an error when contacting the GW2 API.<br />
+				Check your internet connection, and check if the API is up.<br />
+				<br />
+				URL: {error_url}<br />
+				Error: <span style={{color: 'red'}}>{error}</span>
+			</div>;
 
 		return <GW2DyesIndexPage dyes={dyes} dyes_by_name={dyes_by_name} route={route} />;
 	}

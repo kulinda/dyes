@@ -81,22 +81,11 @@ export default function FAQ(props) {
 		<b>Why guild symbols? Why don't you use armor textures?</b><br />
 		I'd love to use armor textures, but unlike guild symbols, they're not published in the official API. If a dataminer wants to help me out, that'd be appreciated.<br />
 		<br />
+		<b>This tool has helped me a lot. How can I thank you?</b>
+		Be excellent to each other. Avoid toxicity and negativity. Help new players. Organize events. Tag up at metas and provide explanations. Listen to your commanders.<br />
+		It's in every player's power to make the game a better place for everyone. I'm doing my part with research and programming. You go do yours.<br />
 		<br />
-		<b>How can I thank you / help you / give feedback?</b><br />
-		The source code is available on github, pull requests welcome.<br />
-		You can find me on <A href="https://www.reddit.com/u/Kulinda">reddit/u/Kulinda</A>.<br />
-		<br />
-		<br />
-
-		<h1>Copyright and legal notices</h1>
-		This tool was written by Kulinda. The source code and its license can be found on <A href="https://github.com/kulinda/dyes/">github.com/kulinda</A>.<br />
-		<br />
-		The favicon and all example textures are © ArenaNet, LLC; this project is using them as allowed per the <A href="https://www.guildwars2.com/en/legal/guild-wars-2-content-terms-of-use/">Guild Wars 2 Content Terms of Use</A>.<br />
-		<br />
-		<i>Guild Wars 2</i> is a trademark or registered trademark of NCSOFT Corporation. This tool is a fan project, and neither affiliated with ArenaNet nor NCSOFT.<br />
-		<br />
-		This tool uses code from the following open source projects: <A href="https://reactjs.org/">React</A> (MIT license), <A href="http://glmatrix.net/">glMatrix</A> (MIT license).<br />
-		<br />
-		<br />
+		<h1>Copyright, legal notices and contact</h1>
+		See <a href="https://kulinda.github.io/" target="_blank" rel="noopener noreferrer">kulinda.github.io</a>.
 	</div>;
 }

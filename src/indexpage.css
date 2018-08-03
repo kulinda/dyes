@@ -44,6 +44,14 @@ body {
 	overflow-y: auto;
 }
 
+.hplink {
+	display: block;
+	text-align: center;
+	font-size: 130%;
+	margin: 0 0 8px 0;
+	text-decoration: none;
+}
+
 .right_panel {
 	flex: 1 1 0px;
 	min-height: 0px;

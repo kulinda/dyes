@@ -3,39 +3,47 @@ import CanvasComponent from './canvas.js';
 // if these imports fail, see src/gl-matrix/readme.txt
 import * as vec4 from './gl-matrix/vec4.js'
 
-import smudge from './textures/59599.png';
-import shroom_color from './textures/1301362.png';
-import shroom_mask0 from './textures/1301578.png';
-import shroom_mask1 from './textures/1301580.png';
-//import flower from './textures/1301346.png';
-import cauldron from './textures/455005.png';
-
-
-function createImage(url) {
+function createImage(url, crossorigin) {
 	let img = document.createElement('img');
+	if (crossorigin)
+		img.crossOrigin = 'anonymous';
 	img.src = url;
 	return img;
 }
 
+const named_textures = {
+	// smudge - background 1
+	'smudge': 'https://render.guildwars2.com/file/936BEB492B0D2BD77307FCB10DBEE51AFB5E6C64/59599.png',
+	// shroom - foreground 206
+	'shroom_color': 'https://render.guildwars2.com/file/7558BC02ED4FA7987642029FD2A89EAD09431105/1301362.png',
+	'shroom_mask0': 'https://render.guildwars2.com/file/00E61FD649629440D040B9AC2CEE2A2DC07B5464/1301578.png',
+	'shroom_mask1': 'https://render.guildwars2.com/file/E7EA7D420E0EE56EC47BCE1F59A50EADC67393AC/1301580.png',
+	// flower - foreground 199
+	'flower': 'https://render.guildwars2.com/file/F7214A0215E21976E89E1708EF80716E0A68CCBC/1301346.png',
+	// cauldron - foreground 93
+	'cauldron': 'https://render.guildwars2.com/file/D0C010FAE925A3F04E9578EC717BDA0EBFF3011E/455005.png',
+};
+
 const textures = {
-	smudge: createImage(smudge),
-	shroom_color: createImage(shroom_color),
-	shroom_mask0: createImage(shroom_mask0),
-	shroom_mask1: createImage(shroom_mask1),
-	//flower: createImage(flower),
-	cauldron: createImage(cauldron),
 };
 
 
 export default class DyeRender extends CanvasComponent {
+	getTexture(name) {
+		name = name || 'smudge';
+		let url = named_textures[name] || name;
+		if (!textures[url])
+			textures[url] = createImage(url, true);
+		return textures[url];
+	}
 	paint(ctx) {
-		let texture = this.waitForImage(textures[this.props.texture || 'smudge']);
+		let texture = this.waitForImage(this.getTexture(this.props.texture));
 		if (!texture)
 			return;
 
 		let mask = null;
 		if (this.props.mask)
-			mask = this.waitForImage(textures[this.props.mask]);
+			mask = this.waitForImage(this.getTexture(this.props.mask));
 
 		let matrix = this.props.matrix;
 		let w = ctx.canvas.width;

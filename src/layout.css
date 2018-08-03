@@ -1,22 +1,3 @@
-body {
-	background-color: black; /* We need a neutral background to show off colors. Abyss is too light. */
-	color: rgb(211, 208, 207); /* Celestial on cloth */
-}
-
-h1, h2 {
-	color: rgb(156, 126, 81); /* Antique Gold on cloth */
-}
-
-.darkened {
-	color: rgb(142, 138, 120); /* Matte on cloth */
-}
-
-a, a:visited {
-	color: #6666ff;
-}
-a, a:hover {
-	color: #aaaaff;
-}
 
 blockquote {
 	padding: 4px;

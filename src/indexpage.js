@@ -3,10 +3,12 @@ import React from 'react';
 import DyeList from './dyelist.js';
 import DyeDetails from './dyedetails.js';
 import DyeStats from './stats.js';
+import GuildEmblems from './guildemblems.js';
 import DyeSearch from './search.js';
 import VisitedDyeList from './visited.js';
 import FAQ from './faq.js';
 
+import './kulinda.css';
 import './layout.css';
 import './indexpage.css';
 
@@ -25,6 +27,7 @@ export default class GW2DyesIndexPage extends React.Component {
 				selected_dye = String(dyes_by_name[name]);
 				if (!dyes[selected_dye]) {
 					selected_dye = false;
+					selected_page = '';
 				}
 			}
 		}
@@ -32,9 +35,11 @@ export default class GW2DyesIndexPage extends React.Component {
 		return <div className="dye_app">
 			<div className="top_panel">
 				<div className="left_panel">
-					<button onClick={e => window.location.hash = '#faq'}>back to the FAQ</button><br />
-					<button onClick={e => window.location.hash = '#stats'}>dye statistics</button><br />
-					<button onClick={e => window.location.hash = '#search'}>search dyes by RGB</button><br />
+					<a className='hplink' href="https://kulinda.github.io/" target="_blank" rel="noopener noreferrer">Kulinda's GW2 Tools</a>
+					<button onClick={e => window.location.hash = '#faq'}>Dye Browser: FAQ</button><br />
+					<button onClick={e => window.location.hash = '#stats'}>Dye statistics</button><br />
+					{/*<button onClick={e => window.location.hash = '#guildemblems'}>Show guild emblems</button><br />*/}
+					<button onClick={e => window.location.hash = '#search'}>Search dyes by RGB</button><br />
 					<br />
 					<DyeList dyes={dyes} />
 				</div>
@@ -43,6 +48,8 @@ export default class GW2DyesIndexPage extends React.Component {
 						? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
 						: (selected_page === 'stats' && dyes)
 						? <DyeStats dyes={dyes} />
+						: (selected_page === 'guildemblems' && dyes)
+						? <GuildEmblems dyes={dyes} />
 						: (selected_page === 'faq' || selected_page === '')
 						? <FAQ dyes={dyes} />
 						: (dyes)

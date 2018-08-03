@@ -5,7 +5,6 @@
 /build
 /public/favicon.png
 /src/gl-matrix/*.js
-/src/textures/*.png
 
 .package-lock.json
 
