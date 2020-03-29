@@ -27,11 +27,12 @@ div.slist_row {
 	width: 256px;
 	height: 64px;
 }
+.dyerectangle.slist_rect .text {
+	line-height: 64px;
+}
 .slist_rect:nth-child(odd) .text {
 	text-align: left;
-	bottom: calc(50% - 8px);
 }
 .slist_rect:nth-child(even) .text {
 	text-align: right;
-	bottom: calc(50% - 8px);
 }

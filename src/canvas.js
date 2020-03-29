@@ -56,6 +56,6 @@ export default class CanvasComponent extends React.PureComponent {
 		let w = this.props.width || 128;
 		let h = this.props.height || 128;
 
-		return <canvas width={w} height={h} ref={this._canvasref} />;
+		return <canvas width={w} height={h} ref={this._canvasref} onMouseOver={this.onMouseMove} onMouseMove={this.onMouseMove} onMouseOut={this.onMouseOut} onClick={this.onClick} />;
 	}
 }

@@ -34,9 +34,9 @@ export default class GW2DyesIndexPage extends React.Component {
 
 		return <div className="dye_app">
 			<div className="top_panel">
-				<div className="left_panel">
-					<a className='hplink' href="https://kulinda.github.io/" target="_blank" rel="noopener noreferrer">Kulinda's GW2 Tools</a>
-					<button onClick={e => window.location.hash = '#faq'}>Dye Browser: FAQ</button><br />
+				<div className="left_panel fw_inputs">
+					<h2 style={{textAlign: 'center'}}>Dye Browser</h2>
+					<button onClick={e => window.location.hash = '#faq'}>Dye FAQ</button><br />
 					<button onClick={e => window.location.hash = '#stats'}>Dye statistics</button><br />
 					{/*<button onClick={e => window.location.hash = '#guildemblems'}>Show guild emblems</button><br />*/}
 					<button onClick={e => window.location.hash = '#search'}>Search dyes by RGB</button><br />

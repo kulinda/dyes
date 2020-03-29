@@ -12,10 +12,10 @@ select, button, input {
 	color: rgb(211, 208, 207); /* Celestial on cloth */
 }
 
-select, button {
+.fw_inputs button, .fw_inputs select {
 	width: 100%;
 }
-input {
+.fw_inputs input {
 	width: calc(100% - 5px);
 }
 

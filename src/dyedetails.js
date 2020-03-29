@@ -43,7 +43,7 @@ export default class DyeDetails extends React.Component {
 			{dye.id !== 1 ? <small><a href={'https://wiki.guildwars2.com/wiki/' + dye.name.replace(' ', '_') + '_Dye'} target='_blank'>GW2W</a></small> : null}<br/>
 			<br />
 
-			<table><tbody>
+			<table className='fw_inputs'><tbody>
 			<tr>
 				{MATERIAL_NAMES.map(mat => <th key={mat}>{mat}</th>)}
 			</tr>

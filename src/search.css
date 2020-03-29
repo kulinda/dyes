@@ -1,0 +1,39 @@
+
+.searchresult {
+	/*display: flex;*/
+	margin: 0 auto;
+	max-width: 50%;
+}
+
+.searchresult > * {
+	flex: 1 0 auto;
+	max-width: 100%;
+}
+
+.screenshot canvas {
+	display: block;
+	margin: 0 auto;
+	max-width: 90%;
+	max-height: 50vh;
+	cursor: crosshair;
+}
+
+.searchselection > * {
+	display: inline-flex;
+	margin: 0 auto;
+	flex-flow: row nowrap;
+}
+
+.searchselection > * > * {
+	flex: 1 0 auto;
+}
+
+.searchselection > * > label {
+	text-align: right;
+	width: 20em;
+	padding-right: 1em;
+}
+
+.searchselection input, .searchselection select {
+	width: 20em;
+}

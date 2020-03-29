@@ -39,6 +39,7 @@ body {
 	flex: 0 0 auto;
 	width: 290px;
 	padding: 5px 10px 5px 5px;
+	margin-top: 3.8em; /* kulinda-menu */
 
 	position: relative;
 	overflow-y: auto;
@@ -60,4 +61,14 @@ body {
 
 	position: relative;
 	overflow-y: auto;
+}
+
+.left_panel, .right_panel {
+	scrollbar-color: rgb(156, 126, 81) black;
+}
+.left_panel::-webkit-scrollbar, .right_panel::-webkit-scrollbar {
+	background-color: black;
+}
+.left_panel::-webkit-scrollbar-thumb, .right_panel::-webkit-scrollbar-thumb {
+	background-color: rgb(156, 126, 81);
 }
