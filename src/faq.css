@@ -1,6 +1,18 @@
 
+.faq {
+	padding: 0.5em;
+}
 table.faq_example td {
 	height: 150px;
 	text-align: center;
 	min-width: 200px;
+}
+
+table.faq_gradient {
+	margin: 0 auto;
+}
+table.faq_gradient td {
+	height: 86px;
+	text-align: center;
+	min-width: 64px;
 }

@@ -45,18 +45,19 @@ export default class DyeRender extends CanvasComponent {
 			mask = this.waitForImage(this.getTexture(this.props.mask));
 
 		let matrix = this.props.matrix;
+
 		let w = ctx.canvas.width;
 		let h = ctx.canvas.height;
 
 		let maskdata = null;
 		if (mask) {
 			ctx.clearRect(0, 0, w, h);
-			ctx.drawImage(mask, 0, 0);
+			ctx.drawImage(mask, 0, 0, w, h);
 			maskdata = ctx.getImageData(0, 0, w, h).data;
 		}
 
 		ctx.clearRect(0, 0, w, h);
-		ctx.drawImage(texture, 0, 0);
+		ctx.drawImage(texture, 0, 0, w, h);
 
 		if (matrix) {
 			let imagedata = ctx.getImageData(0, 0, w, h);

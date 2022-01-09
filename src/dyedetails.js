@@ -6,15 +6,7 @@ import SimilarDyeList from './similarlist.js';
 import ColorWheel from './colorwheel.js';
 
 import {MATERIAL_NAMES, MATERIAL_IDS} from './constants.js';
-
-
-function signed(num) {
-	num = Math.round(num * 100) / 100;
-	let s = '' + num;
-	if (num >= 0)
-		s = '+' + s;
-	return s;
-}
+import formatDyeProperty, { signed } from './format.js';
 
 
 export default class DyeDetails extends React.Component {
@@ -74,11 +66,11 @@ export default class DyeDetails extends React.Component {
 				{MATERIAL_IDS.map(mat => {
 					let d = dye[mat];
 					return <td key={mat}>
-						Brightness: {signed(d.brightness)}<br />
-						Contrast: {signed((d.contrast - 1) * 100)}%<br />
-						Hue: {d.hue}<br />
-						Saturation: {signed((d.saturation - 1) * 100)}%<br />
-						Lightness: {signed((d.lightness - 1) * 100)}%<br />
+						Hue: {formatDyeProperty('hue', d.hue)}<br />
+						Saturation: {formatDyeProperty('saturation', d.saturation)}<br />
+						Lightness: {formatDyeProperty('lightness', d.lightness)}<br />
+						Brightness: {formatDyeProperty('brightness', d.brightness)}<br />
+						Contrast: {formatDyeProperty('contrast', d.contrast)}<br />
 				</td>;})}
 			</tr> : null}
 

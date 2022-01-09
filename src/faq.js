@@ -5,6 +5,8 @@ import DyeRender from './dyerender.js';
 import {REFERENCE_MATERIAL} from './constants.js';
 
 import './faq.css';
+import { getDyeMatrix } from './dyecalc.js';
+import formatDyeProperty from './format.js';
 
 function A(props) {
 	return <a href={props.href} target="_blank" rel="noopener noreferrer">{props.children}</a>;
@@ -38,8 +40,6 @@ export default function FAQ(props) {
 		Note that the original texture uses different shades of red for the stems and caps, so they turn into different shades even for the same dye.<br />
 		<br />
 		For details, see below. Or click a dye on the left and start browsing!<br />
-		<br />
-		<br />
 
 		<h1>How are dyes applied in GW2?</h1>
 		According to the API, a dye has
@@ -48,7 +48,14 @@ export default function FAQ(props) {
 			<li>A brightness modifier</li>
 			<li>A contrast modifier</li>
 		</ul>
-		Most of the information was researched and published by <A href="https://forum-en.gw2archive.eu/members/Cliff-Spradlin-3512/showposts">Cliff Spradlin on the old official forums</A>. Here's a copy of the important bits:<br />
+		Let's take a look at how these properties affect the color, with the unmodified red in the middle:<br />
+		<Gradient name='Hue' prop='hue' min={-180} max={180} />
+		<Gradient name='Saturation' prop='saturation' min={0} max={2} />
+		<Gradient name='Lightness' prop='lightness' min={0} max={2} />
+		<Gradient name='Brightness' prop='brightness' min={-127} max={127} />
+		<Gradient name='Contrast' prop='contrast' min={0} max={2} />
+		<br />
+		The formulas behind all this were researched and published by <A href="https://forum-en.gw2archive.eu/members/Cliff-Spradlin-3512/showposts">Cliff Spradlin on the old official forums</A>. Here's a copy of the important bits:<br />
 		<blockquote cite="https://forum-en.gw2archive.eu/forum/community/api/API-Suggestion-Colors/page/1#post2140079">
 			Brightness should be added to or subtracted from each component of the color<br />
 			Contrast should used as a multiplier for each component of the color ((color – 128) * contrast + 128)<br />
@@ -67,6 +74,7 @@ export default function FAQ(props) {
 		<br />
 		The way it works is pretty different than the processes previously described — it calculates a transformation matrix which is then applied to the color in one pass.<br />
 		</blockquote>
+		Based on that information, I wrote my own dye renderer. The source code can be found on <a href="https://github.com/kulinda/dyes/">https://github.com/kulinda/dyes/</a>.
 		<br />
 		<br />
 		<b>What about colors for skins, hair and eyes?</b><br />
@@ -89,4 +97,32 @@ export default function FAQ(props) {
 		<h1>Copyright, legal notices and contact</h1>
 		See <a href="https://kulinda.github.io/" target="_blank" rel="noopener noreferrer">kulinda.github.io</a>.
 	</div>;
+}
+
+function Gradient(props) {
+	let {name, prop, min, max} = props;
+	let range = max - min;
+	let neutral_dye = {
+		brightness: 0,
+		contrast: 1,
+		hue: 0,
+		saturation: 1,
+		lightness: 1,
+	};
+	let entries = [];
+	let steps = 8;
+	for (let p = 0; p <= steps; p++) {
+		let v = min + (p / steps) * range;
+		let dye = {
+			...neutral_dye,
+			[prop]: v
+		};
+		let matrix = getDyeMatrix(dye);
+		entries.push(<td key={v}><DyeRender texture='shroom_color' matrix={matrix} width={64} height={64} /><br />{formatDyeProperty(prop, v)}</td>);
+	}
+
+	return <table className='faq_gradient darkened'><tbody>
+		<tr><th colSpan={steps + 1}>{name}</th></tr>
+		<tr>{entries}</tr>
+	</tbody></table>;
 }
