@@ -10,7 +10,8 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-scripts": "^5.0.0",
-    "typescript": "^4.5.0"
+    "typescript": "^4.5.0",
+	"@butterwell/oklab": "1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

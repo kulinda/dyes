@@ -59,6 +59,7 @@ export default class DyeDetails extends React.Component {
 			<tr>
 				{MATERIAL_IDS.map(mat => <td key={mat}>
 					<button onClick={this.navigate.bind(this, 'similar_rgb', mat)}>Show similar dyes (RGB)</button><br />
+					<button onClick={this.navigate.bind(this, 'similar_oklab', mat)}>Show similar dyes (Oklab)</button><br />
 					<button onClick={this.navigate.bind(this, 'similar_hsl', mat)}>Show similar dyes (HSL)</button><br />
 					<button onClick={this.navigate.bind(this, 'similar_hue', mat)}>Show similar dyes (hue)</button><br />
 					<button onClick={this.navigate.bind(this, 'colorwheel', mat)}>Show color wheel</button><br />
@@ -88,6 +89,16 @@ export default class DyeDetails extends React.Component {
 				<SimilarDyeList
 					mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
 					metric='rgb'
+				/>
+			</td></tr> : null}
+
+			{section === 'similar_oklab' ? <tr>
+				<th colSpan={MATERIAL_IDS.length}>Similar dyes (based on Oklab), on {material}</th>
+			</tr> : null}
+			{section === 'similar_oklab' ? <tr><td colSpan={MATERIAL_IDS.length}>
+				<SimilarDyeList
+					mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
+					metric='oklab'
 				/>
 			</td></tr> : null}
 

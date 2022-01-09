@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { toOklab } from '@butterwell/oklab';
+
 import fetchAPI from './gw2api.js';
 
 import {getDyeMatrix} from './dyecalc.js';
@@ -47,8 +49,16 @@ class GW2DyesLoader extends React.Component {
 			let dye = data[i];
 			dyes[dye.id] = dye;
 			dyes_by_name[dye.name] = dye.id;
-			for (let mat of MATERIAL_IDS)
-				dye[mat].matrix = getDyeMatrix(dye[mat]);
+			for (let m of MATERIAL_IDS) {
+				let mat = dye[m];
+				mat.matrix = getDyeMatrix(mat);
+				let rgb = mat.rgb;
+				mat.oklab = toOklab({
+					r: rgb[0],
+					g: rgb[1],
+					b: rgb[2],
+				});
+			}
 		}
 		this.dumpDyeStats(dyes);
 		this.setState({dyes: dyes, dyes_by_name: dyes_by_name});

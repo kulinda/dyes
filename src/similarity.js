@@ -31,6 +31,15 @@ function rgbdiff(a, b) {
 	return diff;
 }
 
+function oklabdiff(a, b) {
+	let diff = 0;
+	//diff += Math.abs(a.oklab.L - b.oklab.L);
+	diff += Math.abs(a.oklab.a - b.oklab.a);
+	diff += Math.abs(a.oklab.b - b.oklab.b);
+
+	return diff;
+}
+
 function huediff(a, b) {
 	let diff = Math.abs(a.hue - b.hue);
 	if (diff > 180)
@@ -73,6 +82,7 @@ function hslbdiff(a, b) {
 
 const funcs = {
 	rgb: rgbdiff,
+	oklab: oklabdiff,
 	hue: huediff,
 	hsl: hsldiff,
 	hslb: hslbdiff,
