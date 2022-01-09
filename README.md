@@ -9,7 +9,6 @@ git clone
 npm install
 
 Some required files are not included in this repository.
-* Read src/gl-matrix/readme.txt
 * Put a 256x256 image into public/favicon.png (I'm using the icon for [Unidentified Dye](https://wiki.guildwars2.com/wiki/Unidentified_Dye))
 
 after that, try npm start.

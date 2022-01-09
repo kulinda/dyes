@@ -4,9 +4,9 @@
 /coverage
 /build
 /public/favicon.png
-/src/gl-matrix/*.js
 
 .package-lock.json
+yarn.lock
 
 .DS_Store
 .env.local

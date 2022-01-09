@@ -81,7 +81,8 @@ export default function FAQ(props) {
 		<b>Why guild symbols? Why don't you use armor textures?</b><br />
 		I'd love to use armor textures, but unlike guild symbols, they're not published in the official API. If a dataminer wants to help me out, that'd be appreciated.<br />
 		<br />
-		<b>This tool has helped me a lot. How can I thank you?</b>
+		<br />
+		<b>This tool has helped me a lot. How can I thank you?</b><br />
 		Be excellent to each other. Avoid toxicity and negativity. Help new players. Organize events. Tag up at metas and provide explanations. Listen to your commanders.<br />
 		It's in every player's power to make the game a better place for everyone. I'm doing my part with research and programming. You go do yours.<br />
 		<br />

@@ -1,7 +1,6 @@
 import CanvasComponent from './canvas.js';
 
-// if these imports fail, see src/gl-matrix/readme.txt
-import * as vec4 from './gl-matrix/vec4.js'
+import * as vec4 from 'gl-matrix/esm/vec4.js'
 
 function createImage(url, crossorigin) {
 	let img = document.createElement('img');

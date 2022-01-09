@@ -39,7 +39,7 @@ export default class GW2DyesIndexPage extends React.Component {
 					<button onClick={e => window.location.hash = '#faq'}>Dye FAQ</button><br />
 					<button onClick={e => window.location.hash = '#stats'}>Dye statistics</button><br />
 					{/*<button onClick={e => window.location.hash = '#guildemblems'}>Show guild emblems</button><br />*/}
-					<button onClick={e => window.location.hash = '#search'}>Search dyes by RGB</button><br />
+					<button onClick={e => window.location.hash = '#search'}>Search by RGB or Screenshot</button><br />
 					<br />
 					<DyeList dyes={dyes} />
 				</div>

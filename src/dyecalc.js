@@ -2,9 +2,8 @@
 // Based on code written by Cliff Spradlin of ArenaNet.
 // http://jsfiddle.net/cliff/jQ8ga/
 
-// if these imports fail, see src/gl-matrix/readme.txt
-import * as mat4 from './gl-matrix/mat4.js'
-import * as vec4 from './gl-matrix/vec4.js'
+import * as mat4 from 'gl-matrix/esm/mat4.js'
+import * as vec4 from 'gl-matrix/esm/vec4.js'
 
 
 export function getDyeMatrix(material) {
