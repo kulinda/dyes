@@ -76,21 +76,8 @@ export default class DyeList extends React.PureComponent {
 		let {dyes} = this.props;
 		let {category, filter} = this.state;
 
-		if (dyes === undefined) {
-			return <div>
-				Loading Dyes...<br /><small>You are going to need a modern browser. My time is too precious to support IE.</small>
-			</div>;
-		}
 		if (!dyes) {
-			return <div>
-				Error loading dye data.<br />
-				<ul>
-					<li>Maybe your internet connection is flakey?</li>
-					<li>Maybe your browser is ancient?</li>
-					<li>Maybe the GW2 API is down for maintenance?</li>
-				</ul>
-				Try again later.
-			</div>;
+			return null;
 		}
 
 		let cats = DYE_CATEGORIES[category];
@@ -124,7 +111,7 @@ export default class DyeList extends React.PureComponent {
 			<select value={category} onChange={this.setCategory}>
 				{Object.keys(DYE_CATEGORIES).map(name => <option key={name} value={name}>Group by {name}</option>)}
 			</select><br />
-			<input type="text" value={filter} onChange={this.setFilter} placeholder="filter dyes by name" /><br />
+			<input type="text" value={filter} onChange={this.setFilter} placeholder="Filter dyes by name" /><br />
 			{filter_lc === 'greenrose' ? <div style={{padding: '5px'}}>
 				Roses are red,<br />
 				Violets are blue,<br />
