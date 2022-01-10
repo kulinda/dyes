@@ -5,7 +5,7 @@ import {DYE_CATEGORIES, CONTRASTS, REFERENCE_MATERIAL} from './constants.js';
 import './dyelist.css';
 
 
-function navigateToDye(dye) {
+export function navigateToDye(dye) {
 	if (dye === undefined)
 		return;
 	window.location.hash = '#dye/' + encodeURIComponent(dye.name.replace(' ', '_'));

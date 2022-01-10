@@ -3,6 +3,7 @@ import React from 'react';
 import DyeList from './dyelist.js';
 import DyeDetails from './dyedetails.js';
 import DyeStats from './stats.js';
+import DyeMap from './map.js';
 import GuildEmblems from './guildemblems.js';
 import DyeSearch from './search.js';
 import VisitedDyeList from './visited.js';
@@ -38,6 +39,7 @@ export default class GW2DyesIndexPage extends React.Component {
 					<h2 style={{textAlign: 'center'}}>Dye Browser</h2>
 					<button onClick={e => window.location.hash = '#faq'}>Dye FAQ</button><br />
 					<button onClick={e => window.location.hash = '#stats'}>Dye statistics</button><br />
+					<button onClick={e => window.location.hash = '#map'}>Map of all dyes</button><br />
 					{/*<button onClick={e => window.location.hash = '#guildemblems'}>Show guild emblems</button><br />*/}
 					<button onClick={e => window.location.hash = '#search'}>Search by RGB or Screenshot</button><br />
 					<br />
@@ -48,6 +50,8 @@ export default class GW2DyesIndexPage extends React.Component {
 						? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
 						: (selected_page === 'stats' && dyes)
 						? <DyeStats dyes={dyes} />
+						: (selected_page === 'map' && dyes)
+						? <DyeMap dyes={dyes} />
 						: (selected_page === 'guildemblems' && dyes)
 						? <GuildEmblems dyes={dyes} />
 						: (selected_page === 'faq' || selected_page === '')

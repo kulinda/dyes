@@ -60,7 +60,7 @@ export default function FAQ(props) {
 			Brightness should be added to or subtracted from each component of the color<br />
 			Contrast should used as a multiplier for each component of the color ((color – 128) * contrast + 128)<br />
 			<br />
-			Hue is a value from 0-360 degrees. Saturation and Lightness are both multipliers of the original S & L values.<br />
+			Hue is a value from 0-360 degrees. Saturation and Lightness are both multipliers of the original S &amp; L values.<br />
 			<br />
 			The order of operations is:<br />
 			1) Take the base (RGB) color<br />
@@ -74,23 +74,23 @@ export default function FAQ(props) {
 		<br />
 		The way it works is pretty different than the processes previously described — it calculates a transformation matrix which is then applied to the color in one pass.<br />
 		</blockquote>
-		Based on that information, I wrote my own dye renderer. The source code can be found on <a href="https://github.com/kulinda/dyes/">https://github.com/kulinda/dyes/</a>.
+		Based on that information, I wrote my own dye renderer. The source code can be found on <a href="https://github.com/kulinda/dyes/">https://github.com/kulinda/dyes/</a>.<br />
 		<br />
 		<br />
-		<b>What about colors for skins, hair and eyes?</b><br />
+		<b className='q'>What about colors for skins, hair and eyes?</b><br />
 		These are not documented in the official API (they were documented in an earlier version of the API, but with incomplete information, and I don't have a copy). They also use a different base color, which has never been documented. I've spent quite a bit of time trying to reverse engineer these, but have gotten nowhere. If you know more, contact me.<br />
 		(Don't waste time trying to dump direct3d shaders. Dyes are not applied by a direct3d shader.)<br />
 		<br />
 		<br />
-		<b>Is there a "neutral" color in the game, showing unmodified textures?</b><br />
+		<b className='q'>Is there a "neutral" color in the game, showing unmodified textures?</b><br />
 		You can <a href="#search/cloth/128,26,26">search for dyes similar to rgb(128, 26, 26)</a>, but none of them are an exact match.<br />
 		<br />
 		<br />
-		<b>Why guild symbols? Why don't you use armor textures?</b><br />
+		<b className='q'>Why guild symbols? Why don't you use armor textures?</b><br />
 		I'd love to use armor textures, but unlike guild symbols, they're not published in the official API. If a dataminer wants to help me out, that'd be appreciated.<br />
 		<br />
 		<br />
-		<b>This tool has helped me a lot. How can I thank you?</b><br />
+		<b className='q'>This tool has helped me a lot. How can I thank you?</b><br />
 		Be excellent to each other. Avoid toxicity and negativity. Help new players. Organize events. Tag up at metas and provide explanations. Listen to your commanders.<br />
 		It's in every player's power to make the game a better place for everyone. I'm doing my part with research and programming. You go do yours.<br />
 		<br />
