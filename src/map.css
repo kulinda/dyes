@@ -1,3 +1,10 @@
+
+.dyemap_filter {
+	margin: 0 auto;
+}
+.dyemap_filter td:first-child {
+	text-align: right;
+}
 .dyemap {
 	width: 90%;
 	max-width: calc(100vh - 335px);

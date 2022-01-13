@@ -6,6 +6,7 @@ import DyeRectangle from './dyerectangle';
 import DyeRender from './dyerender';
 
 import './map.css';
+import RangeInput from './rangeinput.js';
 
 export default function DyeMap(props) {
 	let {dyes} = props;
@@ -15,13 +16,23 @@ export default function DyeMap(props) {
 	let [mat, setMat] = React.useState('cloth');
 	let [hovered, setHovered] = React.useState(null);
 	let [zoom, setZoom] = React.useState([0, 0, 0.5]);
+	let [saturation, setSaturation] = React.useState([-100, 100]);
+	let [contrast, setContrast] = React.useState([-100, 100]);
 
 	let dots = React.useMemo(() => {
+		let min_sat = saturation[0] / 100 + 1;
+		let max_sat = saturation[1] / 100 + 1;
+		let min_con = contrast[0] / 100 + 1;
+		let max_con = contrast[1] / 100 + 1;
 		let dots = [];
 		for (let did in dyes) {
 			let dye = dyes[did];
 			let m = dye[mat];
 			if (!m)
+				continue;
+
+			let { saturation, contrast } = m;
+			if (saturation < min_sat || saturation > max_sat || contrast < min_con || contrast > max_con)
 				continue;
 
 			// The range of oklab's a and b is not documented
@@ -41,7 +52,7 @@ export default function DyeMap(props) {
 		}
 		dots.sort((a, b) => a.zIndex - b.zIndex);
 		return dots;
-	}, [dyes, mat]);
+	}, [dyes, mat, saturation, contrast]);
 
 	React.useEffect(() => {
 		function wheel(e) {
@@ -134,8 +145,6 @@ export default function DyeMap(props) {
 		let left = zoom[0] - range/2;
 
 		function findDyeUnderCursor(e) {
-			e.preventDefault();
-
 			let rect = canvas.getBoundingClientRect();
 			let { width, height } = rect;
 			let mousex = e.clientX - rect.left;
@@ -186,14 +195,27 @@ export default function DyeMap(props) {
 	let hdye = hovered ? dyes[hovered] : null;
 
 	return <div style={{textAlign: 'center'}}>
-		<h1>A map of all the dyes</h1>
+		<table className='dyemap_filter'><tbody>
+			<tr>
+				<td>Saturation</td>
+				<td><RangeInput min={-100} max={100} dist={10} value={saturation} setValue={setSaturation} /></td>
+			</tr>
+			<tr>
+				<td>Contrast</td>
+				<td><RangeInput min={-100} max={100} dist={10} value={contrast} setValue={setContrast} /></td>
+			</tr>
+		</tbody></table>
 		<div className='dyemap'>
 			<canvas className='dyemap_canvas' ref={ref} />
 		</div>
 		{hdye ? <div className='dyemap_hover'>
 			<DyeRectangle rgb={hdye[mat].rgb} text={hdye.name} /><br />
 			<DyeRender texture='shroom_color' matrix={hdye[mat].matrix} /><DyeRender matrix={hdye[mat].matrix} /><DyeRender texture='cauldron' matrix={hdye[mat].matrix} />
-		</div> : <div><br />Hover over dyes to see details, use mouse wheel to zoom.</div>}
+		</div> : <div>
+			<br />
+			Hover over dyes for a preview, click to see details<br />
+			Filter using the sliders on the top, use mouse wheel to zoom.
+		</div>}
 	</div>;
 }
 
