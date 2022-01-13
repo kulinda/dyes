@@ -46,7 +46,7 @@ export default function DyeMap(props) {
 				csscolor: 'rgb(' + m.rgb.join(', ') + ')',
 				size: 2 * sq(1.0 - 0.6 * L),
 				a: a,
-				b: b,
+				b: b + 0.02, // they aren't centered very well, this is a hack to fix that
 				zIndex: Math.floor(L * 1000),
 			});
 		}
@@ -63,9 +63,11 @@ export default function DyeMap(props) {
 			e.preventDefault();
 
 			let rect = target.getBoundingClientRect();
+			let { width, height } = rect;
+			let smaller = Math.min(width, height);
 			let delta = e.deltaY;
-			let mousex = ((e.clientX - rect.left) / rect.width) - 0.5;
-			let mousey = ((e.clientY - rect.top) / rect.height) - 0.5;
+			let mousex = (e.clientX - rect.left - width/2) / smaller;
+			let mousey = (e.clientY - rect.top - height/2) / smaller;
 
 			setZoom((prev) => {
 				let [cx, cy, range] = prev;
@@ -111,22 +113,21 @@ export default function DyeMap(props) {
 			return;
 		
 		let { width, height } = canvas.getBoundingClientRect();
+		let smaller = Math.min(width, height);
 		canvas.width = width;
 		canvas.height = height;
 
 		ctx.clearRect(0, 0, width, height);
 		
 		let range = zoom[2];
-		let top = zoom[1] - range/2;
-		let left = zoom[0] - range/2;
 
 		for (let dot of dots) {
 			let { csscolor, size, a, b } = dot;
 
-			let x = (a - left) / range * width;
-			let y = (b - top) / range * height;
+			let x = (a - zoom[0]) / range * smaller + width/2;
+			let y = (b - zoom[1]) / range * smaller + height/2;
 
-			let radius = width/25 * size / 2;
+			let radius = smaller/25 * size / 2;
 
 			ctx.fillStyle = csscolor;
 			ctx.beginPath();
@@ -141,12 +142,11 @@ export default function DyeMap(props) {
 			return;
 
 		let range = zoom[2];
-		let top = zoom[1] - range/2;
-		let left = zoom[0] - range/2;
 
 		function findDyeUnderCursor(e) {
 			let rect = canvas.getBoundingClientRect();
 			let { width, height } = rect;
+			let smaller = Math.min(width, height);
 			let mousex = e.clientX - rect.left;
 			let mousey = e.clientY - rect.top;
 
@@ -154,11 +154,11 @@ export default function DyeMap(props) {
 			for (let dot of dots) {
 				let { dye, size, a, b } = dot;
 
-				let x = (a - left) / range * width;
-				let y = (b - top) / range * height;
+				let x = (a - zoom[0]) / range * smaller + width/2;
+				let y = (b - zoom[1]) / range * smaller + height/2;
 
 				let dist = sq(mousex - x) + sq(mousey - y);
-				let radius = width/25 * size / 2;
+				let radius = smaller/25 * size / 2;
 				if (dist < sq(radius))
 					best_match = {
 						id: dot.id,
@@ -168,7 +168,7 @@ export default function DyeMap(props) {
 
 			return best_match;
 		}
-		function mousemove(e) {
+		function pointermove(e) {
 			let match = findDyeUnderCursor(e);
 			setHovered(match ? match.id : null);
 		}
@@ -184,38 +184,40 @@ export default function DyeMap(props) {
 			capture: true,
 			passive: true,
 		};
-		canvas.addEventListener('mousemove', mousemove, options);
+		canvas.addEventListener('pointermove', pointermove, options);
 		canvas.addEventListener('click', click, options);
 		return () => {
-			canvas.removeEventListener('mousemove', mousemove, options);
+			canvas.removeEventListener('pointermove', pointermove, options);
 			canvas.removeEventListener('click', click, options);
 		}
 	}, [dots, zoom]);
 
 	let hdye = hovered ? dyes[hovered] : null;
 
-	return <div style={{textAlign: 'center'}}>
-		<table className='dyemap_filter'><tbody>
-			<tr>
-				<td>Saturation</td>
-				<td><RangeInput min={-100} max={100} dist={10} value={saturation} setValue={setSaturation} /></td>
-			</tr>
-			<tr>
-				<td>Contrast</td>
-				<td><RangeInput min={-100} max={100} dist={10} value={contrast} setValue={setContrast} /></td>
-			</tr>
-		</tbody></table>
+	return <div className='dyemap_container' style={{textAlign: 'center'}}>
+		<div className='dyemap_top'>
+			{hdye ? <div className='dyemap_hover'>
+				<DyeRender texture='shroom_color' matrix={hdye[mat].matrix} /><DyeRender matrix={hdye[mat].matrix} /><DyeRender texture='cauldron' matrix={hdye[mat].matrix} /><br />
+				<DyeRectangle rgb={hdye[mat].rgb} text={hdye.name} /><br />
+			</div> : <div>
+				<h2>Map of all Dyes</h2>
+				Hover over dyes for a preview, click a dye to see details.<br />
+				Use mouse wheel to zoom, use these sliders to filter.<br />
+				<table className='dyemap_filter'><tbody>
+					<tr>
+						<td>Saturation</td>
+						<td><RangeInput min={-100} max={100} dist={10} value={saturation} setValue={setSaturation} /></td>
+					</tr>
+					<tr>
+						<td>Contrast</td>
+						<td><RangeInput min={-100} max={100} dist={10} value={contrast} setValue={setContrast} /></td>
+					</tr>
+				</tbody></table>
+			</div>}
+		</div>
 		<div className='dyemap'>
 			<canvas className='dyemap_canvas' ref={ref} />
 		</div>
-		{hdye ? <div className='dyemap_hover'>
-			<DyeRectangle rgb={hdye[mat].rgb} text={hdye.name} /><br />
-			<DyeRender texture='shroom_color' matrix={hdye[mat].matrix} /><DyeRender matrix={hdye[mat].matrix} /><DyeRender texture='cauldron' matrix={hdye[mat].matrix} />
-		</div> : <div>
-			<br />
-			Hover over dyes for a preview, click to see details<br />
-			Filter using the sliders on the top, use mouse wheel to zoom.
-		</div>}
 	</div>;
 }
 
