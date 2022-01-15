@@ -11,6 +11,10 @@ function percent(v) {
 	return signed((v - 1) * 100) + '%';
 }
 
+function hue(v) {
+	return v + '°';
+}
+
 function none(v) {
 	return '' + v;
 }
@@ -18,7 +22,7 @@ function none(v) {
 const formats = {
 	brightness: signed,
 	contrast: percent,
-	hue: none,
+	hue: hue,
 	saturation: percent,
 	lightness: percent,
 }
