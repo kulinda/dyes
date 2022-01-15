@@ -119,7 +119,30 @@ function dumpDyeStats(dyes) {
 			}
 		}
 	}
-	console.log(min, max);
+	console.log('minmax', min, max);
+	let missing = 0;
+	let equivalent = 0;
+	let different = 0;
+	for (let id in dyes) {
+		let dye = dyes[id];
+		if (!dye.fur) {
+			missing++;
+			continue;
+		}
+		let equal = true;
+		for (let prop of ['brightness', 'contrast', 'hue', 'saturation', 'lightness']) {
+			if (dye.cloth[prop] !== dye.fur[prop])
+				equal = false;
+		}
+		if (equal)
+			equivalent++;
+		else {
+			console.log(dye.name, dye.cloth, dye.fur);
+			different++;
+		}
+	}
+	console.log("missing", missing, "equal", equivalent, "diff", different);
+
 }
 
 ReactDOM.render(<GW2DyesLoader />, document.getElementById('root'));
