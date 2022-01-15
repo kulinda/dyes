@@ -17,6 +17,3 @@ export const REFERENCE_MATERIAL = 'cloth';
 
 export const MATERIAL_NAMES = ['Cloth', 'Leather', 'Metal'];
 export const MATERIAL_IDS = MATERIAL_NAMES.map(n => n.toLowerCase());
-
-export const VISITED_LIST_LENGTH = 5;
-export const VISITED_LIST_ENTRY_WIDTH = Math.floor(100 / VISITED_LIST_LENGTH) + '%';

@@ -17,8 +17,55 @@ body {
 	flex-flow: column nowrap;
 }
 
-.top_panel {
-	flex: 1 1 0px;
+.menu {
+	flex: 0 0 auto;
+
+	display: flex;
+	flex-flow: row wrap;
+	margin-bottom: 0.5em;
+}
+
+.menu > a {
+	display: block;
+	position: relative;
+	height: 3em;
+	padding: 0 1em;
+	line-height: 3em;
+	color: inherit !important;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.menu > a > img {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 0.5em;
+	height: 60%;
+}
+.menu > a.active > .underline {
+	background-color: rgb(67, 26, 0); /* Umber on cloth */
+}
+
+.menu > a:hover > .underline {
+	background-color: rgb(67, 26, 0); /* Umber on cloth */
+}
+
+.underline {
+	position: absolute;
+	left: 1.5em;
+	right: 1.5em;
+	bottom: -5px;
+	height: 3px;
+	background-color: transparent;
+	transition: background-color 0.3s ease;
+}
+
+.menu > a:first-child > .underline {
+	left: 4em;
+}
+
+.main_panel {
+	flex: 1 1 auto;
 	min-height: 0px;
 
 	/* contains left_panel and right_panel */
@@ -28,21 +75,22 @@ body {
 	align-items: stretch;
 }
 
-.bottom_panel {
-	position: relative;
-	flex: 0 0 auto;
-	height: 40px;
-	padding-top: 3px;
+.main_panel > div {
+	flex: 1 1 auto;
+	overflow-y: auto;
 }
 
-.left_panel {
+.main_panel > div.left_panel {
 	flex: 0 0 auto;
 	width: 290px;
 	padding: 5px 10px 5px 5px;
-	margin-top: 3.8em; /* kulinda-menu */
 
 	position: relative;
 	overflow-y: auto;
+}
+
+.main_panel > div.right_panel {
+	flex: 1 1 1px;
 }
 
 .hplink {

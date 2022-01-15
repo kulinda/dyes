@@ -14,57 +14,99 @@ import './layout.css';
 import './indexpage.css';
 
 
-export default class GW2DyesIndexPage extends React.Component {
-	render() {
-		let {dyes, dyes_by_name, route} = this.props;
+export default function GW2DyesIndexPage(props) {
+	let {dyes, dyes_by_name, route} = props;
 
-		let r = route.split('/');
-		let selected_page = r[0];
-		let selected_dye = false;
-		if (selected_page === 'dye' && dyes) {
-			selected_dye = decodeURIComponent(r[1]);
+	let visited_ref = React.useRef(new Set());
+
+	let r = route.split('/');
+	let selected_page = r[0];
+	let selected_dye = false;
+	if (selected_page === 'dye' && dyes) {
+		selected_dye = decodeURIComponent(r[1]);
+		if (!dyes[selected_dye]) {
+			let name = selected_dye.replace('_', ' ');
+			selected_dye = String(dyes_by_name[name]);
 			if (!dyes[selected_dye]) {
-				let name = selected_dye.replace('_', ' ');
-				selected_dye = String(dyes_by_name[name]);
-				if (!dyes[selected_dye]) {
-					selected_dye = false;
-					selected_page = '';
-				}
+				selected_dye = false;
+				//selected_page = '';
 			}
 		}
-
-		return <div className="dye_app">
-			<div className="top_panel">
-				<div className="left_panel fw_inputs">
-					<h2 style={{textAlign: 'center'}}>Dye Browser</h2>
-					<button onClick={e => window.location.hash = '#faq'}>Dye FAQ</button><br />
-					<button onClick={e => window.location.hash = '#stats'}>Dye statistics</button><br />
-					<button onClick={e => window.location.hash = '#map'}>Map of all dyes</button><br />
-					{/*<button onClick={e => window.location.hash = '#guildemblems'}>Show guild emblems</button><br />*/}
-					<button onClick={e => window.location.hash = '#search'}>Search by RGB or Screenshot</button><br />
-					<br />
-					<DyeList dyes={dyes} />
-				</div>
-				<div className="right_panel">
-					{(selected_page === 'search' && dyes)
-						? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
-						: (selected_page === 'stats' && dyes)
-						? <DyeStats dyes={dyes} />
-						: (selected_page === 'map' && dyes)
-						? <DyeMap dyes={dyes} />
-						: (selected_page === 'guildemblems' && dyes)
-						? <GuildEmblems dyes={dyes} />
-						: (selected_page === 'faq' || selected_page === '')
-						? <FAQ dyes={dyes} />
-						: (dyes)
-						? <DyeDetails dyes={dyes} dye={dyes[selected_dye]} />
-						: <div>loading..</div>
-					}
-				</div>
-			</div>
-			<div className="bottom_panel">
-				<VisitedDyeList dyes={dyes} selected_dye={selected_dye} />
-			</div>
-		</div>;
 	}
+
+	if (selected_dye && visited_ref.current) {
+		visited_ref.current.add(selected_dye);
+	}
+
+	if (selected_page === '')
+		selected_page = 'faq';
+
+	let has_left_panel = selected_page === 'faq' || selected_page === 'dye' || selected_page === 'visited';
+
+	return <div className="dye_app">
+		<div className="menu">
+			<MenuItem selected_page={selected_page} page='' className='kulinda_menu'>
+				<img src="https://kulinda.github.io/kulinda_head.png" alt="" />
+				Kulinda's GW2 Stuff
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='dye'>
+				<img src="./dyelist.png" alt="" />
+				Dye List
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='map'>
+				<img src="./dyemap.png" alt="" />
+				Dye Map
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='faq'>
+				FAQ
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='stats'>
+				<img src="./statistics.png" alt="" />
+				Statistics
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='search'>
+				Search by RGB or Screenshot
+			</MenuItem>
+			{visited_ref.current && visited_ref.current.size > 0 ? <MenuItem selected_page={selected_page} page='visited'>
+				Visited Dyes
+			</MenuItem> : null}
+			{/*<MenuItem selected_page={selected_page} page='guildemblems'>
+				Show guild emblems
+			</MenuItem>*/}
+		</div>
+		<div className="main_panel">
+			{has_left_panel ? <div className="left_panel fw_inputs">
+				<DyeList dyes={dyes} />
+			</div> : null}
+			<div className="right_panel">
+				{(selected_page === 'search' && dyes)
+					? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
+					: (selected_page === 'stats' && dyes)
+					? <DyeStats dyes={dyes} />
+					: (selected_page === 'map' && dyes)
+					? <DyeMap dyes={dyes} />
+					: (selected_page === 'guildemblems' && dyes)
+					? <GuildEmblems dyes={dyes} />
+					: (selected_page === 'faq')
+					? <FAQ dyes={dyes} />
+					: (selected_page === 'visited')
+					? <VisitedDyeList dyes={dyes} visited={visited_ref.current} />
+					: (dyes && selected_dye && dyes[selected_dye])
+					? <DyeDetails dyes={dyes} dye={dyes[selected_dye]} />
+					: (!dyes)
+					? <div>loading..</div>
+					: null
+				}
+			</div>
+		</div>
+	</div>;
+}
+
+function MenuItem(props) {
+	let {selected_page, page, className = '', children} = props;
+
+	return <a href={'#' + page} className={(selected_page === page ? 'active' : '') + ' ' + className}>
+		{children}
+		<div className="underline" />
+	</a>;
 }
