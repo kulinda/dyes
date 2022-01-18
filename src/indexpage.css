@@ -15,14 +15,20 @@ body {
 
 	display: flex;
 	flex-flow: column nowrap;
+	background-color: rgb(23, 27, 40); /* Midnight Sky on cloth */
 }
 
 .menu {
 	flex: 0 0 auto;
-
 	display: flex;
 	flex-flow: row wrap;
-	margin-bottom: 0.5em;
+	padding-bottom: 0.5em;
+	margin: 0 1em 1em 1em;
+}
+.mainmenu {
+	background-color: black;
+	border-radius: 0 0 0.5em 0.5em;
+	margin: 0 1em 1em 1em;
 }
 
 .menu > * {
@@ -83,9 +89,19 @@ body {
 .main_panel > div.left_panel {
 	flex: 0 0 auto;
 	width: 290px;
-	padding: 5px 10px 5px 5px;
 
 	position: relative;
+	background-color: black;
+	border-radius: 0.5em;
+	margin: 0 0 1em 1em;
+}
+.left_panel_inner {
+	position: absolute;
+	left: 1em;
+	top: 1em;
+	right: 0.5em;
+	padding-right: 0.5em;
+	bottom: 1em;
 	overflow-y: auto;
 }
 
@@ -104,21 +120,39 @@ body {
 .right_panel {
 	flex: 1 1 0px;
 	min-height: 0px;
-
-	padding: 5px;
+	margin: 0 1em 1em 1em;
 
 	position: relative;
-	overflow-y: auto;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
 }
 
-.left_panel, .right_panel {
+.left_panel_inner, .right_panel {
 	scrollbar-color: rgb(156, 126, 81) black;
 }
-.left_panel::-webkit-scrollbar, .right_panel::-webkit-scrollbar {
+.left_panel_inner::-webkit-scrollbar, .right_panel::-webkit-scrollbar {
 	background-color: black;
 }
-.left_panel::-webkit-scrollbar-thumb, .right_panel::-webkit-scrollbar-thumb {
+.left_panel_inner::-webkit-scrollbar-thumb, .right_panel::-webkit-scrollbar-thumb {
 	background-color: rgb(156, 126, 81);
+}
+
+.content, .content_fw {
+	flex: 1 1 auto;
+	height: 100%;
+	overflow-y: auto;
+	border-radius: 0.5em;
+	box-sizing: border-box;
+
+	background-color: black;
+}
+.content {
+	max-width: 1000px;
+	padding: 1em 2em;
+}
+.content_fw {
+	max-width: 100%;
 }
 
 .loading {

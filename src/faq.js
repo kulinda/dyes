@@ -13,7 +13,7 @@ function A(props) {
 }
 
 export default function FAQ(props) {
-	return <div><div className="faq">
+	return <div><div className="content faq">
 		<h1>Kulinda's GuildWars 2 Dye Browser</h1>
 		These are some unmodified textures from the game:<br />
 		<table className='faq_example darkened'><tbody><tr>

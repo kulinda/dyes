@@ -185,7 +185,7 @@ export default function DyeMap(props) {
 	let hdye = hovered ? dyes[hovered] : null;
 	let href = hdye ? '#dye/' + encodeURIComponent(hdye.name.replace(' ', '_')) : undefined;
 
-	return <div className='dyemap_container' style={{textAlign: 'center'}}>
+	return <div className='content_fw dyemap_container' style={{textAlign: 'center'}}>
 		<div className='dyemap_top'>
 			{hdye ? <div className='dyemap_hover'>
 				<DyeRender texture='shroom_color' matrix={hdye[mat].matrix} /><DyeRender matrix={hdye[mat].matrix} /><DyeRender texture='cauldron' matrix={hdye[mat].matrix} /><br />

@@ -148,7 +148,7 @@ export default class DyeSearch extends React.Component {
 			rgb = [0, 0, 0];
 		}
 
-		return <div>
+		return <div className={img ? "content_fw" : "content"}>
 			<div className='searchselection'>
 				<div>
 					<label>Material:</label>

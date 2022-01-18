@@ -112,7 +112,7 @@ export default class DyeList extends React.PureComponent {
 			<select value={category} onChange={this.setCategory}>
 				{Object.keys(DYE_CATEGORIES).map(name => <option key={name} value={name}>Group by {name}</option>)}
 			</select><br />
-			<input type="text" value={filter} onChange={this.setFilter} placeholder="Filter dyes by name" /><br />
+			<input type="text" value={filter} onChange={this.setFilter} placeholder="Search dyes by name" /><br />
 			{filter_lc === 'greenrose' ? <div style={{padding: '5px'}}>
 				Roses are red,<br />
 				Violets are blue,<br />

@@ -22,7 +22,7 @@ export default function VisitedDyeList(props) {
 	visited.forEach((id) => {
 		arr.push(<DyeRectangle key={id} className='visiteddye' rgb={dyes[id][REFERENCE_MATERIAL].rgb} link={dyes[id].name} text={dyes[id].name} />);
 	})
-	return <div className='visiteddyes'>
+	return <div className='content visiteddyes'>
 		These are all the dyes you've looked at today:<br />
 		<br />
 		<div className='visiteddyeslist'>

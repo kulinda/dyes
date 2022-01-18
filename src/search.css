@@ -2,7 +2,8 @@
 .searchresult {
 	/*display: flex;*/
 	margin: 0 auto;
-	max-width: 50%;
+	width: 80%;
+	max-width: 800px;
 }
 
 .searchresult > * {

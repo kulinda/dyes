@@ -3,7 +3,34 @@
 	text-align: center;
 }
 
+.dyedetails_header {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	margin: 0 !important;
+	max-width: none !important;
+}
+.dyedetails_header > div {
+	flex: 1 1 1px;
+}
+
+.dyedetails_name {
+	/* webpackIgnore: true */
+	background-image: url(./favicon.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: top left;
+	box-sizing: border-box;
+	height: 64px;
+	text-align: left;
+	font-size: 120%;
+}
+.dyedetails_name > div {
+	margin-left: 70px;
+}
+
 .menu.dyedetails_menu {
+	flex: 0 0 auto;
 	justify-content: center;
 }
 
@@ -12,8 +39,7 @@
 	line-height: 2em;
 }
 
-.dyedetails > table, .dyedetails > div {
-	max-width: 800px; /* at least 6*128 = 768px for 6 images, plus margins */
+.dyedetails > table {
 	margin: 0 auto;
 }
 

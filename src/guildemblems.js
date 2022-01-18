@@ -48,7 +48,7 @@ function Guild(props) {
 		{guild.name} [{guild.tag}]<br />
 		{MATERIAL_IDS.map(mat => <GuildEmblemRow key={mat} mat={mat} guild={guild} dyes={dyes} />)}
 		<br />
-		{guild.emblem.flags.length > 0 ? <small>TODO: parse flags, {guild.emblem.flags.join(',')}</small> : null}
+		{guild.emblem.flags.length > 0 ? <small>ignoring flags: {guild.emblem.flags.join(',')}</small> : null}
 	</div>;
 }
 
@@ -107,14 +107,14 @@ export default class EmblemChooser extends React.Component {
 			}
 
 			if (guilds.length < 1)
-				return <div>loading..</div>;
-			return <div>
+				return <div className='content loading'>loading..</div>;
+			return <div className='content'>
 				{guilds.map(g => <Guild key={g.id} guild={g} dyes={dyes} />)}
 			</div>;
 		}
 
 		if (!api_key || error) {
-			return <div className='guildemblem_form'>
+			return <div className='content guildemblem_form'>
 				<h2>Guild Emblems</h2>
 				Note: This feature is for research. It allows comparisons between the game's rendering and this tool's rendering.<br />
 				<br />

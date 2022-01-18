@@ -13,10 +13,11 @@ select, button, input {
 }
 
 .fw_inputs button, .fw_inputs select {
-	width: 100%;
+	width: calc(100% - 10px);
+	margin-bottom: 2px;
 }
 .fw_inputs input {
-	width: calc(100% - 5px);
+	width: calc(100% - 18px);
 }
 
 th {

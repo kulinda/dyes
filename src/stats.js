@@ -163,7 +163,7 @@ export default class DyeStats extends React.Component {
 		let exclusive = Object.keys(dyes).length - 1; // 'Dye Remover' has no category
 		for (let i = 0; i < DYE_CATEGORIES.set.length - 1; i++)
 			exclusive -= countByCategory(dyes, DYE_CATEGORIES.set[i]);
-		return <div>
+		return <div className="content">
 			<h1>Dye statistics</h1>
 			There are {Object.keys(dyes).length} dyes, {exclusive} of which are exclusive.<br />
 			<br />

@@ -48,7 +48,7 @@ export default function GW2DyesIndexPage(props) {
 	let has_left_panel = selected_page === 'faq' || selected_page === 'dye' || selected_page === 'visited';
 
 	return <div className="dye_app">
-		<div className="menu">
+		<div className="menu mainmenu">
 			<MenuItem selected_page={selected_page} page='' className='kulinda_menu'>
 				<img src="https://kulinda.github.io/kulinda_head.png" alt="" />
 				Kulinda's GW2 Stuff
@@ -61,12 +61,12 @@ export default function GW2DyesIndexPage(props) {
 				<img src="./dyemap.png" alt="" />
 				Dye Map
 			</MenuItem>
-			<MenuItem selected_page={selected_page} page='faq'>
-				FAQ
-			</MenuItem>
 			<MenuItem selected_page={selected_page} page='stats'>
 				<img src="./statistics.png" alt="" />
 				Statistics
+			</MenuItem>
+			<MenuItem selected_page={selected_page} page='faq'>
+				FAQ
 			</MenuItem>
 			<MenuItem selected_page={selected_page} page='search'>
 				Search by RGB or Screenshot
@@ -79,9 +79,9 @@ export default function GW2DyesIndexPage(props) {
 			</MenuItem>*/}
 		</div>
 		<div className="main_panel">
-			{has_left_panel ? <div className="left_panel fw_inputs">
+			{has_left_panel ? <div className="left_panel"><div className="left_panel_inner fw_inputs">
 				<DyeList dyes={dyes} />
-			</div> : null}
+			</div></div> : null}
 			<div className="right_panel">
 				{(selected_page === 'search' && dyes)
 					? <DyeSearch dyes={dyes} material={r[1] || material} rgb={r[2]}/>

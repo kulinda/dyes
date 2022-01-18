@@ -26,7 +26,7 @@ export default function ColorWheel(props) {
 		let radius = 40;
 		let x = 50 + radius * Math.sin(hue * Math.PI / 180);
 		let y = 50 + radius * Math.cos(hue * Math.PI / 180);
-		elements.push(<div key={i} className='colorwheel_color' style={{left: x+'%', top: y+'%'}}>
+		elements.push(<div key={i} className='colorwheel_color' style={{left: x+'%', top: y+'%'}} title={dye.name}>
 			<DyeRectangle className='colorwheel_color_rect' key={i}
 				rgb={dye[mat].rgb} text={dye.name}
 				link={dye.name}
@@ -34,7 +34,7 @@ export default function ColorWheel(props) {
 		</div>);
 	}
 
-	return <div className='colorwheel'>
+	return <div className='colorwheel'><div className='colorwheel_inner'>
 		<div className='colorwheel_help'><p>
 			This colorwheel attempts to show 11 different
 			dyes across the hue spectrum,<br />
@@ -43,5 +43,5 @@ export default function ColorWheel(props) {
 			They should go well together for your new color scheme!
 		</p></div>
 		{elements}
-	</div>;
+	</div></div>;
 }

@@ -27,21 +27,26 @@ export default function DyeDetails(props) {
 
 	let {dyes, dye, material, setMaterial} = props;
 
-	return <div className='dyedetails'>
-		<b>{dye.name}</b><br />
-		{dye.id !== 1 ? <small><a href={'https://wiki.guildwars2.com/wiki/' + dye.name.replace(' ', '_') + '_Dye'} target='_blank'>GW2W</a></small> : null}<br/>
-		<br />
-
-		<div className="menu dyedetails_menu">
-			<MenuItem section={section} name='materials' setSection={setSection}>
-				Materials
-			</MenuItem>
-			<MenuItem section={section} name='similar' setSection={setSection}>
-				Similar Dyes
-			</MenuItem>
-			<MenuItem section={section} name='colorwheel' setSection={setSection}>
-				Color Wheel
-			</MenuItem>
+	return <div className='content dyedetails'>
+		<div className='dyedetails_header'>
+			<div className='dyedetails_name'>
+				<div>
+					<b>{dye.name}</b><br />
+					{dye.id !== 1 ? <small><a href={'https://wiki.guildwars2.com/wiki/' + dye.name.replace(' ', '_') + '_Dye'} target='_blank'>GW2W</a></small> : null}<br/>
+				</div>
+			</div>
+			<div className="menu dyedetails_menu">
+				<MenuItem section={section} name='materials' setSection={setSection}>
+					Materials
+				</MenuItem>
+				<MenuItem section={section} name='similar' setSection={setSection}>
+					Similar Dyes
+				</MenuItem>
+				<MenuItem section={section} name='colorwheel' setSection={setSection}>
+					Color Wheel
+				</MenuItem>
+			</div>
+			<div />
 		</div>
 		<br />
 		<br />
@@ -56,7 +61,7 @@ export default function DyeDetails(props) {
 function Materials(props) {
 	let {dye} = props;
 
-	return <table><tbody>
+	return <table width="90%"><tbody>
 		<tr>
 			{MATERIAL_NAMES.map((mat) => <th key={mat}>{mat}</th>)}
 		</tr>
@@ -65,7 +70,9 @@ function Materials(props) {
 				let d = dye[mat];
 				return <td key={mat}>
 					<DyeRectangle rgb={d.rgb} text={'rgb(' + d.rgb.join(', ') + ')'} /><br />
-					<DyeRender matrix={d.matrix} /><DyeRender texture='cauldron' matrix={d.matrix} />
+					<DyeRender texture='smudge' matrix={d.matrix} /><br />
+					<DyeRender texture='cauldron' matrix={d.matrix} /><br />
+					<DyeRender texture='shroom_color' matrix={d.matrix} /><br />
 				</td>;
 			})}
 		</tr>
