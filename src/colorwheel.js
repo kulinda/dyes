@@ -18,9 +18,10 @@ export default function ColorWheel(props) {
 			hue: hue,
 			saturation: reference.saturation,
 			lightness: reference.lightness,
-			brightness: reference.brightness
+			brightness: reference.brightness,
+			contrast: reference.contrast,
 		}
-		let dye = getSimilarDyes(dyes, mat, target, 'hslb', 1)[0].dye;
+		let dye = getSimilarDyes(dyes, mat, target, 'hsl_colorwheel', 1)[0].dye;
 
 		let radius = 40;
 		let x = 50 + radius * Math.sin(hue * Math.PI / 180);
