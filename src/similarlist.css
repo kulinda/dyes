@@ -7,15 +7,17 @@
 }
 .slist_column {
 	position: relative;
-	flex: 1 1 0px;
+	flex: 0 0 auto;
 }
 div.slist_row {
 	height: 128px;
+	white-space: nowrap;
 }
 .slist_column.left {
 	padding-top: 0px;
 }
 .slist_column.middle {
+	flex: 1 1 auto;
 	padding-top: 32px;
 }
 .slist_column.right {
@@ -24,7 +26,8 @@ div.slist_row {
 
 .dyerectangle.slist_rect {
 	display: block;
-	width: 256px;
+	width: 100%;
+	min-width: 150px;
 	height: 64px;
 }
 .slist_rect:nth-child(odd) .text {

@@ -8,12 +8,13 @@ import DyeRender from './dyerender.js';
 import './similarlist.css';
 
 const COUNT_PER_PAGE = 10;
+const MAX_COUNT = 50;
 
 export default function SimilarDyeList(props) {
 	let [count, setCount] = React.useState(COUNT_PER_PAGE);
 
 	function more() {
-		setCount((prev) => prev + COUNT_PER_PAGE);
+		setCount((prev) => Math.min(MAX_COUNT, prev + COUNT_PER_PAGE));
 	}
 
 	let {dyes, mat, reference, metric} = props;
@@ -39,6 +40,6 @@ export default function SimilarDyeList(props) {
 			<div className='slist_column middle'>{middle}</div>
 			<div className='slist_column right'>{right}</div>
 		</div>
-		<button onClick={more}>show more</button>
+		{count < MAX_COUNT ? <button onClick={more}>show more</button> : null}
 	</div>;
 }
