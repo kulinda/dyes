@@ -57,13 +57,13 @@ function GW2DyesLoader() {
 	}, [error]);
 
 	if (error) {
-		return <div style={{width: '500px', margin: '100px auto'}}>
+		return <div className='dye_app loading'><div>
 			<h1>Kulinda's GW2 Dye Browser</h1>
-			There was an error when contacting the GW2 API.<br />
+			There was an error when contacting the Guild Wars 2 API.<br />
 			Check your internet connection, and check if the API is up.<br />
 			<br />
 			Error: <span style={{color: 'red'}}>{error}</span>
-		</div>;
+		</div></div>;
 	}
 
 	let dyes = null;

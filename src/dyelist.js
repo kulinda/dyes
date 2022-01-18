@@ -23,9 +23,10 @@ class DyeCategory extends React.Component {
 			<div className='cat_container'>
 				{filtered.map(id => {
 					let dye = dyes[id];
-					return <div key={id} className='cat_dye' title={dye.name}
+					let href = '#dye/' + encodeURIComponent(dye.name.replace(' ', '_'));
+					return <a key={id} className='cat_dye' title={dye.name}
 						style={{backgroundColor: 'rgb(' + dye[material].rgb.join(',') + ')'}}
-						onClick={navigateToDye.bind(null, dye)}
+						href={href}
 					/>;
 				})}
 			</div>

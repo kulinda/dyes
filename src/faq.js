@@ -78,9 +78,9 @@ export default function FAQ(props) {
 		</tr> : <tr><td /></tr>}
 		</tbody></table>
 		<br />
-		As you can see, the differences are minor, even on a dye I hand-picked to show the difference.<br />
+		The differences are minor, even on a dye hand-picked to illustrate the difference.<br />
 		<br />
-		There's a fourth material, Fur, but it doesn't appear to be used on any armor skins, so I will ignore it. For most dyes, the Fur modifiers are identical to Cloth anyway.<br />
+		There's a fourth material, Fur, but it doesn't appear to be used on any armor skins, so we will ignore it. For most dyes, the Fur modifiers are identical to Cloth anyway.<br />
 		<br />
 		Ingame (and in the list to the left), you can group dyes by material (Vibrant, Leather, Other).
 		Those are just categories assigned by the developers and independent of the actual materials I talked about.
@@ -113,24 +113,24 @@ export default function FAQ(props) {
 		(Don't waste time trying to dump direct3d shaders. Dyes are not applied by a direct3d shader.)<br />
 
 		<h2>There are some special dyes that result in multiple colors!</h2>
-		No, there aren't. Some textures, especially the fiery mount skins, have base textures whose colors deviate a lot from the reference red they're supposed to use.
+		No, there aren't. Some skins have base textures whose colors deviate a lot from the reference red they're supposed to use.
 		If the base texture contains multiple colors (like red and orange), then the dyed texture will have multiple colors as well.<br />
 		<br />
 		What you're seeing is one of two things:
 		<ul>
-			<li>an amplification of the perceived difference, because hue space isn't perceptually uniform</li>
-			<li>a numerical instability around very bright or very dark colors, because their hue isn't well defined</li>
+			<li>An amplification of the perceived difference after the hue shift, because hue space isn't perceptually uniform.</li>
+			<li>A numerical instability around desaturated base colors, because their hue isn't well defined. This is most common around bright flames or dark smoke.</li>
 		</ul>
 		These effects are stronger on some dyes, but that doesn't mean that those dyes are special. Every dye has the same modifiers, as explained above.<br />
 
-		<h2>What is this oklab I see?</h2>
+{/*		<h2>What is this oklab I see?</h2>
 		It's a color space designed to be perceptually uniform. Searching similar dyes by oklab should give you better color matches than searching by RGB.
 		But in either case, we're trying to determine similarity of a five-dimensional transformation by comparing a single three-dimensional value (the result of the reference color),
 		which ignores contrast, and no search will be perfect.
 		That's why I'm giving you options, try them all until you find a dye you like.
 		<br />
 		If you want to know details, see the article <A href="https://bottosson.github.io/posts/oklab/">A perceptual color space for image processing</A> by Björn Ottosson.<br />
-
+*/}
 		<h2>Is there a "neutral" color in the game, showing unmodified textures?</h2>
 		You can <a href="#search/cloth/128,26,26">search for dyes similar to rgb(128, 26, 26)</a>, but none of them are an exact match.<br />
 

@@ -15,9 +15,7 @@
 	width: 128px;
 	height: 128px;
 	border-radius: 64px;
-}
-.colorwheel_color_rect.dyerectangle .text {
-	bottom: calc(50% - 8px);
+	line-height: 128px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }

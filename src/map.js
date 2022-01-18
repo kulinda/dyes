@@ -1,12 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 
-import {MATERIAL_IDS} from './constants.js';
-import { navigateToDye } from './dyelist';
 import DyeRectangle from './dyerectangle';
 import DyeRender from './dyerender';
 
 import './map.css';
 import RangeInput from './rangeinput.js';
+
+function navigateToDye(dye) {
+	if (dye === undefined)
+		return;
+	window.location.hash = '#dye/' + encodeURIComponent(dye.name.replace(' ', '_'));
+}
 
 export default function DyeMap(props) {
 	let {dyes} = props;

@@ -9,11 +9,13 @@
 
 .dyerectangle .text {
 	position: absolute;
-	bottom: 0px;
-	left: 4px;
-	right: 4px;
+	bottom: calc(50% - 20px);
+	left: 8px;
+	right: 8px;
 	text-align: center;
 	font-size: 12px;
 	line-height: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	white-space: pre;
 }

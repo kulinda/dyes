@@ -1,0 +1,17 @@
+
+.visiteddyes {
+	max-width: 1000px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.visiteddyeslist {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.visiteddye {
+	width: 20em;
+	margin: 0.2em;
+}

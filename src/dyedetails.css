@@ -1,0 +1,22 @@
+
+.dyedetails {
+	text-align: center;
+}
+
+.menu.dyedetails_menu {
+	justify-content: center;
+}
+
+.menu.dyedetails_menu > div {
+	height: 2em;
+	line-height: 2em;
+}
+
+.dyedetails > table, .dyedetails > div {
+	max-width: 800px; /* at least 6*128 = 768px for 6 images, plus margins */
+	margin: 0 auto;
+}
+
+.dyedetails select {
+	margin-left: 0.5em;
+}

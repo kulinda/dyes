@@ -3,14 +3,8 @@ import React from 'react';
 import './dyerectangle.css';
 
 
-function navigateToDye(name) {
-	if (name === undefined)
-		return;
-	window.location.hash = '#dye/' + encodeURIComponent(name.replace(' ', '_'));
-}
-
 export default function DyeRectangle(props) {
-	let {rgb, text, link} = props;
+	let {rgb, text, title, link} = props;
 	let style = {
 		color: 'black',
 		backgroundColor: 'rgb(' + rgb.join(',') + ')',
@@ -27,16 +21,19 @@ export default function DyeRectangle(props) {
 	if (brightness <= 128)
 		style.color = 'white';
 
-	if (link !== undefined)
-		style.cursor = 'pointer';
-
 	let className = 'dyerectangle';
 	if (props.className)
 		className += ' ' + props.className;
 
-	return <div className={className} onClick={navigateToDye.bind(null, link)} style={style}>
+	let href = undefined;
+	if (link !== undefined) {
+		style.cursor = 'pointer';
+		href = '#dye/' + encodeURIComponent(link.replace(' ', '_'));
+	}
+	
+	return <a className={className} href={href} title={title} style={style}>
 		<div className='text'>
 			{text}
 		</div>
-	</div>;
+	</a>;
 }

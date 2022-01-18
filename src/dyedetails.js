@@ -8,51 +8,68 @@ import ColorWheel from './colorwheel.js';
 import {MATERIAL_NAMES, MATERIAL_IDS} from './constants.js';
 import formatDyeProperty from './format.js';
 
+import './dyedetails.css';
+
+
+
+export function MenuItem(props) {
+	let {section, setSection, name, className = '', children} = props;
+
+	return <div className={(section === name ? 'active' : '') + ' ' + className} onClick={() => setSection(name)}>
+		{children}
+		<div className="underline" />
+	</div>;
+}
+
 
 export default function DyeDetails(props) {
-	let [section, setSection] = React.useState(false);
-	let [material, setMaterial] = React.useState(false);
+	let [section, setSection] = React.useState('materials');
 
-	function navigate(section, material) {
-		setSection(section);
-		setMaterial(material);
-	}
+	let {dyes, dye, material, setMaterial} = props;
 
-	let {dyes, dye} = props;
-
-	return <div>
+	return <div className='dyedetails'>
 		<b>{dye.name}</b><br />
 		{dye.id !== 1 ? <small><a href={'https://wiki.guildwars2.com/wiki/' + dye.name.replace(' ', '_') + '_Dye'} target='_blank'>GW2W</a></small> : null}<br/>
 		<br />
 
-		<table className='fw_inputs'><tbody>
-		<tr>
-			{MATERIAL_NAMES.map(mat => <th key={mat}>{mat}</th>)}
-		</tr>
-		<tr>
-			{MATERIAL_IDS.map(mat => <td key={mat}>
-				<DyeRectangle rgb={dye[mat].rgb} text={'rgb(' + dye[mat].rgb.join(', ') + ')'} /><br />
-				<DyeRender matrix={dye[mat].matrix} /><DyeRender texture='cauldron' matrix={dye[mat].matrix} />
-			</td>)}
-		</tr>
-		<tr><td colSpan={MATERIAL_IDS.length}>
-			<button onClick={() => navigate('details', '')}>Show details</button>
-		</td></tr>
-		<tr>
-			{MATERIAL_IDS.map(mat => <td key={mat}>
-				<button onClick={() => navigate('similar_rgb', mat)}>Show similar dyes (RGB)</button><br />
-				<button onClick={() => navigate('similar_oklab', mat)}>Show similar dyes (Oklab)</button><br />
-				<button onClick={() => navigate('similar_hsl', mat)}>Show similar dyes (HSL)</button><br />
-				<button onClick={() => navigate('similar_hue', mat)}>Show similar dyes (hue)</button><br />
-				<button onClick={() => navigate('colorwheel', mat)}>Show color wheel</button><br />
-				<br />
-			</td>)}
-		</tr>
+		<div className="menu dyedetails_menu">
+			<MenuItem section={section} name='materials' setSection={setSection}>
+				Materials
+			</MenuItem>
+			<MenuItem section={section} name='similar' setSection={setSection}>
+				Similar Dyes
+			</MenuItem>
+			<MenuItem section={section} name='colorwheel' setSection={setSection}>
+				Color Wheel
+			</MenuItem>
+		</div>
+		<br />
+		<br />
 
-		{section === 'details' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Color Information</th>
-		</tr> : null}
-		{section === 'details' ? <tr>
+		{section === 'materials' ? <Materials dye={dye} />
+		: section === 'similar' ? <SimilarDyes dyes={dyes} dye={dye} material={material} setMaterial={setMaterial} />
+		: section === 'colorwheel' ? <ColorWheelSection dyes={dyes} dye={dye} material={material} setMaterial={setMaterial} />
+		: null}
+	</div>;
+}
+
+function Materials(props) {
+	let {dye} = props;
+
+	return <table><tbody>
+		<tr>
+			{MATERIAL_NAMES.map((mat) => <th key={mat}>{mat}</th>)}
+		</tr>
+		<tr>
+			{MATERIAL_IDS.map((mat) => {
+				let d = dye[mat];
+				return <td key={mat}>
+					<DyeRectangle rgb={d.rgb} text={'rgb(' + d.rgb.join(', ') + ')'} /><br />
+					<DyeRender matrix={d.matrix} /><DyeRender texture='cauldron' matrix={d.matrix} />
+				</td>;
+			})}
+		</tr>
+		<tr>
 			{MATERIAL_IDS.map(mat => {
 				let d = dye[mat];
 				return <td key={mat}>
@@ -62,56 +79,49 @@ export default function DyeDetails(props) {
 					Brightness: {formatDyeProperty('brightness', d.brightness)}<br />
 					Contrast: {formatDyeProperty('contrast', d.contrast)}<br />
 			</td>;})}
-		</tr> : null}
+		</tr>
+	</tbody></table>;
+}
 
-		{section === 'similar_rgb' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Similar dyes (based on RGB), on {material}</th>
-		</tr> : null}
-		{section === 'similar_rgb' ? <tr><td colSpan={MATERIAL_IDS.length}>
-			<SimilarDyeList
-				mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
-				metric='rgb'
-			/>
-		</td></tr> : null}
+function SimilarDyes(props) {
+	let {dyes, dye, material, setMaterial} = props;
 
-		{section === 'similar_oklab' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Similar dyes (based on Oklab), on {material}</th>
-		</tr> : null}
-		{section === 'similar_oklab' ? <tr><td colSpan={MATERIAL_IDS.length}>
-			<SimilarDyeList
-				mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
-				metric='oklab'
-			/>
-		</td></tr> : null}
+	let [metric, setMetric] = React.useState('oklab');
 
-		{section === 'similar_hsl' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Similar dyes (based on HSL), on {material}</th>
-		</tr> : null}
-		{section === 'similar_hsl' ? <tr><td colSpan={MATERIAL_IDS.length}>
-			<SimilarDyeList
-				mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
-				metric='hsl'
-			/>
-		</td></tr> : null}
+	return <div>
+		Similar dyes, on
+		<select value={material} onChange={(e) => setMaterial(e.target.value)}>
+			{MATERIAL_IDS.map((mat, idx) => {
+				let name = MATERIAL_NAMES[idx];
+				return <option value={mat} key={mat}>{name}</option>;
+			})}
+		</select>, sorted by
+		<select value={metric} onChange={(e) => setMetric(e.target.value)}>
+			<option value='oklab'>reference color</option>
+			<option value='hue'>hue</option>
+			<option value='huesat'>hue and saturation</option>
+		</select>:<br />
+		<br />
+		<SimilarDyeList
+			mat={material} dyes={dyes} reference={false ? {rgb: dye.base_rgb} : dye[material]}
+			metric={metric}
+		/>
+	</div>;
+}
 
-		{section === 'similar_hue' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Similar dyes (based on hue), on {material}</th>
-		</tr> : null}
-		{section === 'similar_hue' ? <tr><td colSpan={MATERIAL_IDS.length}>
-			<SimilarDyeList
-				mat={material} dyes={dyes} reference={dye[material]}
-				metric='hue'
-			/>
-		</td></tr> : null}
 
-		{section === 'colorwheel' ? <tr>
-			<th colSpan={MATERIAL_IDS.length}>Color wheel, on {material}</th>
-		</tr> : null}
-		{section === 'colorwheel' ? <tr><td colSpan={MATERIAL_IDS.length}>
-			<ColorWheel
-				mat={material} dyes={dyes} reference={dye[material]}
-			/>
-		</td></tr> : null}
-		</tbody></table>
+function ColorWheelSection(props) {
+	let {dyes, dye, material, setMaterial} = props;
+
+	return <div>
+		Color Wheel, on
+		<select value={material} onChange={(e) => setMaterial(e.target.value)}>
+			{MATERIAL_IDS.map((mat, idx) => {
+				let name = MATERIAL_NAMES[idx];
+				return <option value={mat} key={mat}>{name}</option>;
+			})}
+		</select>:<br />
+		<br />
+		<ColorWheel mat={material} dyes={dyes} reference={dye[material]} />
 	</div>;
 }

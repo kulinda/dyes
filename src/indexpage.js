@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import DyeList from './dyelist.js';
 import DyeDetails from './dyedetails.js';
@@ -9,6 +9,8 @@ import DyeSearch from './search.js';
 import VisitedDyeList from './visited.js';
 import FAQ from './faq.js';
 
+import { MATERIAL_IDS } from './constants.js';
+
 import './kulinda.css';
 import './layout.css';
 import './indexpage.css';
@@ -16,6 +18,8 @@ import './indexpage.css';
 
 export default function GW2DyesIndexPage(props) {
 	let {dyes, dyes_by_name, route} = props;
+
+	let [material, setMaterial] = React.useState(MATERIAL_IDS[0]);
 
 	let visited_ref = React.useRef(new Set());
 
@@ -80,11 +84,11 @@ export default function GW2DyesIndexPage(props) {
 			</div> : null}
 			<div className="right_panel">
 				{(selected_page === 'search' && dyes)
-					? <DyeSearch dyes={dyes} material={r[1]} rgb={r[2]}/>
+					? <DyeSearch dyes={dyes} material={r[1] || material} rgb={r[2]}/>
 					: (selected_page === 'stats' && dyes)
 					? <DyeStats dyes={dyes} />
 					: (selected_page === 'map' && dyes)
-					? <DyeMap dyes={dyes} />
+					? <DyeMap dyes={dyes} material={material} setMaterial={setMaterial} />
 					: (selected_page === 'guildemblems' && dyes)
 					? <GuildEmblems dyes={dyes} />
 					: (selected_page === 'faq')
@@ -92,9 +96,9 @@ export default function GW2DyesIndexPage(props) {
 					: (selected_page === 'visited')
 					? <VisitedDyeList dyes={dyes} visited={visited_ref.current} />
 					: (dyes && selected_dye && dyes[selected_dye])
-					? <DyeDetails dyes={dyes} dye={dyes[selected_dye]} />
+					? <DyeDetails dyes={dyes} dye={dyes[selected_dye]} material={material} setMaterial={setMaterial} />
 					: (!dyes)
-					? <div>loading..</div>
+					? <div className='loading'>Loading Dyes..</div>
 					: null
 				}
 			</div>
@@ -102,7 +106,7 @@ export default function GW2DyesIndexPage(props) {
 	</div>;
 }
 
-function MenuItem(props) {
+export function MenuItem(props) {
 	let {selected_page, page, className = '', children} = props;
 
 	return <a href={'#' + page} className={(selected_page === page ? 'active' : '') + ' ' + className}>
