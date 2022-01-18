@@ -6,16 +6,11 @@ import DyeRender from './dyerender';
 import './map.css';
 import RangeInput from './rangeinput.js';
 
-function navigateToDye(dye) {
-	if (dye === undefined)
-		return;
-	window.location.hash = '#dye/' + encodeURIComponent(dye.name.replace(' ', '_'));
-}
-
 export default function DyeMap(props) {
 	let {dyes} = props;
 
 	let ref = React.useRef(null);
+	let a_ref = React.useRef(null);
 
 	let [mat, setMat] = React.useState('cloth');
 	let [hovered, setHovered] = React.useState(null);
@@ -176,27 +171,19 @@ export default function DyeMap(props) {
 			let match = findDyeUnderCursor(e);
 			setHovered(match ? match.id : null);
 		}
-		function click(e) {
-			let match = findDyeUnderCursor(e);
-			if (!match)
-				return;
-			
-			navigateToDye(match.dye);
-		}
 
 		let options = {
 			capture: true,
 			passive: true,
 		};
 		canvas.addEventListener('pointermove', pointermove, options);
-		canvas.addEventListener('click', click, options);
 		return () => {
 			canvas.removeEventListener('pointermove', pointermove, options);
-			canvas.removeEventListener('click', click, options);
 		}
 	}, [dots, zoom]);
 
 	let hdye = hovered ? dyes[hovered] : null;
+	let href = hdye ? '#dye/' + encodeURIComponent(hdye.name.replace(' ', '_')) : undefined;
 
 	return <div className='dyemap_container' style={{textAlign: 'center'}}>
 		<div className='dyemap_top'>
@@ -220,7 +207,7 @@ export default function DyeMap(props) {
 			</div>}
 		</div>
 		<div className='dyemap'>
-			<canvas className='dyemap_canvas' ref={ref} />
+			<a href={href} ref={a_ref}><canvas className='dyemap_canvas' ref={ref} /></a>
 		</div>
 	</div>;
 }
