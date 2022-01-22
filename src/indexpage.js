@@ -49,7 +49,7 @@ export default function GW2DyesIndexPage(props) {
 
 	return <div className="dye_app">
 		<div className="menu mainmenu">
-			<MenuItem selected_page={selected_page} page='' className='kulinda_menu'>
+			<MenuItem selected_page={selected_page} page='' className='_kulinda_menu' onClick={(e) => e.preventDefault()}>
 				<img src="https://kulinda.github.io/kulinda_head.png" alt="" />
 				Kulinda's GW2 Stuff
 			</MenuItem>
@@ -107,9 +107,9 @@ export default function GW2DyesIndexPage(props) {
 }
 
 export function MenuItem(props) {
-	let {selected_page, page, className = '', children} = props;
+	let {selected_page, page, className = '', children, onClick} = props;
 
-	return <a href={'#' + page} className={(selected_page === page ? 'active' : '') + ' ' + className}>
+	return <a href={'#' + page} onClick={onClick} className={(selected_page === page ? 'active' : '') + ' ' + className}>
 		{children}
 		<div className="underline" />
 	</a>;
